@@ -3,3 +3,43 @@
 	padding: 0px;
 	box-sizing: border-box;
 }
+
+.color-1 {
+	color: #f03613;
+}
+
+.color-2 {
+	color: #edc02c;
+}
+
+.color-3 {
+	color: #27b46e;
+}
+
+.color-4 {
+	color: #a2eeeb;
+}
+
+.color-5 {
+	color: #f3e2b3;
+}
+
+.bg-1 {
+	background-color: #f03613; !important
+}
+
+.bg-2 {
+	background-color: #edc02c; !important
+}
+
+.bg-3 {
+	background-color: #27b46e; !important
+}
+
+.bg-4 {
+	background-color: #a2eeeb; !important
+}
+
+.bg-5 {
+	background-color: #f3e2b3; !important
+}
