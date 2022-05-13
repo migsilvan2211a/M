@@ -3,7 +3,7 @@ import {Button, Container} from 'react-bootstrap';
 const Login = () => {
   return (
     <Container className="50vw 50vh align-items-center">
-      <form action="">
+      <form>
         <div className="d-flex flex-column ">
           <label htmlFor="uName">Username: </label>
           <input type="text" name="uName" />
