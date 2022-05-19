@@ -8,6 +8,10 @@ body {
   height:  100%;
 }
 
+.fitHeight {
+  min-height: 100%;
+}
+
 #sidebar {
   width:  20%;
   height: 100%;
