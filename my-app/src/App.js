@@ -1,17 +1,37 @@
-import React from 'react';
+import React, {useContext,  useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
+import {BrowserRouter as Router, Routes, Route, useLocation} from 'react-router-dom';
 import AppNavbar from './components/AppNavbar';
-import Register from './components/Register'
-import Login from './components/Login';
+import Register from './pages/Register'
+import Login from './pages/Login';
+import Logout from './pages/Logout';
+import Products from './pages/Products'
 import Home from './pages/Home';
-
+import Admin from './pages/Admin';
+import User from './pages/User';
+import {UserProvider} from './UserContext'
+import './App.css'
 
 function App() {
+  
+  const [user, setUser] = useState({ token: localStorage.getItem("token"), email: localStorage.getItem("email"), isAdmin : localStorage.getItem("isAdmin"), fullName: localStorage.getItem("fullName")});
+  const location = useLocation();
+
+  
   return (
     <>
-      <AppNavbar />
-      <Home />
-      <Register />
+      <UserProvider value={{user, setUser}}>
+        {(location.pathname == '/') ? <></> : <AppNavbar />}
+        	<Routes>
+        		<Route path="/" element={ <Home /> } />
+            <Route path="/register" element={ <Register /> } />
+        		<Route path="/login" element={ <Login /> } />
+            <Route path="/logout" element={ <Logout /> } />
+            <Route path="/products" element={ <Products />} />
+            <Route path="/admin" element={ <Admin /> } />
+            <Route path="/user" element={ <User /> } />
+        	</Routes>
+      </UserProvider>
     </>
   );
 } 

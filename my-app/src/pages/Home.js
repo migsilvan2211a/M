@@ -1,11 +1,16 @@
 import React from 'react';
-import AppSidebar from '../components/AppSidebar';
-
+import { Link } from 'react-router-dom';
+import {useMediaQuery} from 'react-responsive';
+import HomeSmall from '../components/HomeSmall'
+import HomeBig from '../components/HomeBig'
 export default function Home() {
-	let title = 'The lord of the Rings';
-	console.log(title[2]);
-
+	const isSmall = useMediaQuery({query: '(max-width: 768px)'})
+	console.log(isSmall)
 	return(
-		<AppSidebar />
+		<div id="homePicture" className="homeBorder">
+			
+				{(isSmall) ? <HomeSmall /> : <HomeBig />}
+			
+		</div>
 	);
 }
