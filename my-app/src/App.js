@@ -9,6 +9,8 @@ import Products from './pages/Products'
 import Home from './pages/Home';
 import Admin from './pages/Admin';
 import User from './pages/User';
+import Contact from './pages/Contact';
+import About from './pages/About';
 import {UserProvider} from './UserContext'
 import './App.css'
 
@@ -30,6 +32,8 @@ function App() {
             <Route path="/products" element={ <Products />} />
             <Route path="/admin" element={ <Admin /> } />
             <Route path="/user" element={ <User /> } />
+            <Route path="/contact" element={ <Contact /> } />
+            <Route path="/about" element={ <About /> } />
         	</Routes>
       </UserProvider>
     </>

@@ -4,7 +4,6 @@ import { useContext } from 'react';
 import UserContext from '../UserContext';
 export default function NavbarBig() {
 	const {user} = useContext(UserContext);
-	console.log(typeof user);
 	return(
 		<>
 		<Navbar expand="lg" className="container-fluid py-0 px-3 m-0 d-flex justify-content-between ">
@@ -22,7 +21,7 @@ export default function NavbarBig() {
 				{	(user.token) ? 
 					<>
 						{
-							(user.isAdmin === true) ?
+							(user.isAdmin == "true") ?
 							<Nav.Link as={Link} className="p-1" to="/admin">Admin Dashboard</Nav.Link>:
 							<Nav.Link as={Link} className="p-1" to="/user">My Account</Nav.Link>
 						}

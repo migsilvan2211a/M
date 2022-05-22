@@ -1,5 +1,8 @@
 
 
 export default function AdminViewSmall() {
-	return();
+	return(
+		<div>
+		</div>
+	);
 }

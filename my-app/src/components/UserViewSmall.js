@@ -1,5 +1,8 @@
 
 
 export default function UserViewSmall() {
-	return();
+	return(
+		<div>
+		</div>
+	);
 }

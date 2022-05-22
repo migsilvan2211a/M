@@ -1,5 +1,8 @@
 
 
 export default function AdminViewBig() {
-	return();
+	return(
+		<div>
+		</div>
+	);
 }
