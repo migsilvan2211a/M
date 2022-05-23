@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Tabs, Tab, Nav, Row, Col, Form, Table, thead, tbody, th, Button, Modal } from 'react-bootstrap';
+import { Tab, Nav, Row, Col, Form, Table, Button, Modal } from 'react-bootstrap';
 import "bootstrap/dist/css/bootstrap.min.css"
 import Swal from "sweetalert2"
 
@@ -16,7 +16,6 @@ export default function AdminViewBig() {
 
 	useEffect(() => {
 		myProp.data = data;
-		
 	}, [data])
 
 	return(
@@ -78,7 +77,7 @@ function Profile() {
 }
 
 function Users({data, ...props}) {
-	let myProp = { ...data, ...props }
+	let myProp = { ...data, ...props, category: "users" }
 	return(
 		<div>
 			<h3>Manage Users</h3>
@@ -95,7 +94,7 @@ function Users({data, ...props}) {
 }
 
 function Products({data, ...props}) {
-	let myProp = { ...data, ...props }
+	let myProp = { ...data, ...props, category: "products" }
 	return(
 		<div>
 			<h3>Manage Products</h3>
@@ -120,7 +119,7 @@ function Products({data, ...props}) {
 }
 
 function Orders({data, ...props}) {
-	let myProp = { ...data, ...props }
+	let myProp = { ...data, ...props, category: "orders" }
 	return(
 		<div>
 			<h3>Manage Orders</h3>
@@ -152,10 +151,10 @@ function Search({search, setSearch}) {
 	)
 }
 
-function MyTable({header, data, search}) {
-	let myProp = {header, data, search};
+function MyTable({header, data, search, category}) {
+	let myProp = {header, data, search, category};
 	let myData = data;
-	let myProp2 = {header, myData}
+	let myProp2 = {header, myData, category}
 	return(
 		<Table striped bordered hover>
 			<thead>
@@ -182,13 +181,29 @@ function MyTable({header, data, search}) {
 	)
 }
 
-function TableData({header, myData}) {
+function TableData({header, myData, category}) {
+	const [renderer, setRenderer] = useState(0);
+
+	const deleter = (id) => {
+		fetch(`http://localhost:3500/${category}/delete/${id}`, 
+			{
+				method: "DELETE",
+				headers: {
+					"Content-Type": "application/json",
+					authorization: `Bearer ${localStorage.getItem("token")}`
+				}
+			}
+		).then(res => res.json())
+		.then(data => {serverMessage(data, "Product successfully deleted" ); setRenderer(renderer+1)})
+	}
+
 	return(
 		<>
 			{
 				myData.map(x => { //print the items					
 					return (
-					<tr>
+
+					<tr key={x._id}>
 						{
 							header.map(y => {
 								return (<td>{`${x[y]}`}</td>)
@@ -199,7 +214,7 @@ function TableData({header, myData}) {
 							<Button>Update</Button>
 						</td>
 						<td>
-							<Button>Delete</Button>
+							<Button onClick={deleter(x._id)}>Delete</Button>
 						</td>
 					</tr>)
 				})
@@ -208,12 +223,12 @@ function TableData({header, myData}) {
 	);
 }
 
-function TableSearch({header, data, search}) {
+function TableSearch({header, data, search, category}) {
 	let mySearch = search.toLowerCase();
 	let myData = data.filter(x => {
 		return JSON.stringify(x).toLowerCase().includes(mySearch)
 	})
-	let myProps = {header, myData}
+	let myProps = {header, myData, category}
 
 	return(
 		<TableData {...myProps} />
@@ -222,7 +237,7 @@ function TableSearch({header, data, search}) {
 
 function fetchAdminData(setData, type, link) {
 	let header = []
-	if(type == "users")
+	if(type === "users")
 		 header = [
 			"_id",
 			"fName",
@@ -233,7 +248,7 @@ function fetchAdminData(setData, type, link) {
 			"isAdmin",
 			"address"
 		];
-	else if(type == "products")
+	else if(type === "products")
 		 header = [
 			"_id",
 			"name",
@@ -244,7 +259,7 @@ function fetchAdminData(setData, type, link) {
 			"isActive",
 			"createdOn"
 	]
-	else if(type == "orders")
+	else if(type === "orders")
 		 header = [
 			"_id",
 			"customer",
@@ -294,14 +309,7 @@ function CreateProduct() {
 				price: price,
 				stock: stock
 			})
-		}).then(res => res.json()).then(data => {
-			let message = data.message;
-			let error = data.error;
-			if(message == "Product saved successfully")
-				Swal.fire("Success!", "Product saved successfully", "success")
-			else if(message || error)
-				Swal.fire("Oops!", message, 'error')
-		})
+		}).then(res => res.json()).then(data => serverMessage(data, "Product saved successfully"))
 	}
 
 	return(
@@ -315,22 +323,22 @@ function CreateProduct() {
 					<Form>
 						<Form.Group>
 							<Form.Label>Product Name:</Form.Label>
-							<Form.Control type="text" onChange={e => setName(e.target.value)} value={name} />
+							<Form.Control type="text" onChange={e => setName(e.target.value)} value={name} required/>
 						</Form.Group>
 
 						<Form.Group>
 							<Form.Label>Description:</Form.Label>
-							<Form.Control type="text" onChange={e => setDescription(e.target.value)} value={description} />
+							<Form.Control type="text" onChange={e => setDescription(e.target.value)} value={description} required/>
 						</Form.Group>
 
 						<Form.Group>
 							<Form.Label>Price:</Form.Label>
-							<Form.Control type="text" onChange={e => setPrice(e.target.value)} value={price} />
+							<Form.Control type="text" onChange={e => setPrice(e.target.value)} value={price} required/>
 						</Form.Group>
 
 						<Form.Group>
 							<Form.Label>Stock:</Form.Label>
-							<Form.Control type="text" onChange={e => setStock(e.target.value)} value={stock} />
+							<Form.Control type="text" onChange={e => setStock(e.target.value)} value={stock} required/>
 						</Form.Group>
 					</Form>
 				</Modal.Body>
@@ -345,3 +353,13 @@ function CreateProduct() {
 
 }
 
+function serverMessage(data, toCheck) {
+	let message = data.message;
+	let error = data.error;
+	if(message === toCheck)
+		Swal.fire("Success!", toCheck, "success")
+	else if(message)
+		Swal.fire("Oops!", message, 'error')
+	else if(error)
+		Swal.fire("Oops!", error, 'error')
+}

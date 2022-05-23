@@ -1,10 +1,10 @@
 //imports
 	import React, {useState, useEffect} from 'react';
-	import {Form, Button, Row, Col, Image} from 'react-bootstrap';
+	import {Form, Button, Image} from 'react-bootstrap';
 	import Swal from 'sweetalert2';
 	import Datepicker from 'react-datepicker';
 	import phil from 'phil-reg-prov-mun-brgy';
-	import {Navigate, useNavigate}  from 'react-router-dom';
+	import { useNavigate }  from 'react-router-dom';
 	import 'react-datepicker/dist/react-datepicker.css';
 	import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 	import pic1 from '../pictures/clothes1.jpg'
@@ -115,7 +115,7 @@ export default function Register() {
 			})
 
 		}).then(response => response.text()).then(data => {
-		if (data == "User successfully saved."){
+		if (data === "User successfully saved."){
 			Swal.fire("Success!", "Thank you for registering", "success");
 			navigate('/');
 		}

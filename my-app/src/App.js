@@ -1,6 +1,5 @@
-import React, {useContext,  useState, useEffect} from 'react';
-import ReactDOM from 'react-dom';
-import {BrowserRouter as Router, Routes, Route, useLocation} from 'react-router-dom';
+import React, {useState} from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import AppNavbar from './components/AppNavbar';
 import Register from './pages/Register'
 import Login from './pages/Login';
@@ -23,7 +22,7 @@ function App() {
   return (
     <>
       <UserProvider value={{user, setUser}}>
-        {(location.pathname == '/') ? <></> : <AppNavbar />}
+        {(location.pathname === '/') ? <></> : <AppNavbar />}
         	<Routes>
         		<Route path="/" element={ <Home /> } />
             <Route path="/register" element={ <Register /> } />
