@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { Tab, Nav, Row, Col, Form, Table, Button, Modal } from 'react-bootstrap';
 import "bootstrap/dist/css/bootstrap.min.css"
 import Swal from "sweetalert2"
@@ -9,16 +9,15 @@ export default function AdminViewBig() {
 	const [key, setKey] = useState("profile");
 	const [search, setSearch] = useState('');
 	const {data, setData} = useContext(AdminContext);
-
-	let myProp = {
-		search: search,
-		setSearch: setSearch,
-		data: data
+	
+	let myProp ={
+			search: search,
+			setSearch: setSearch,
+			data: data
 	};
+	
+	myProp.data = data;
 
-	useEffect(() => {
-		myProp.data = data;
-	}, [data])
 
 	return(
 		<Tab.Container activeKey={key} onSelect={k => setKey(k)} mountOnEnter unmountOnExit  >
@@ -184,7 +183,7 @@ function MyTable({header, data, search, category}) {
 }
 
 function TableData({header, myData, category}) {
-	const {data, setData} = useContext(AdminContext)	
+	const {setData} = useContext(AdminContext)	
 
 	const deleter = (id) => {
 		fetch(`https://infinite-sea-39312.herokuapp.com/${category}/delete/${id}`, 
