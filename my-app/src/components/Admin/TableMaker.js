@@ -18,7 +18,7 @@ function TableData({header, myData, category}) {
 				}
 			}
 		).then(res => res.json())
-		.then(data => {serverMessage(data, "Product successfully deleted" ); fetchAdminData(setData, "products", "/products/findAll")})
+		.then(data => {serverMessage(data, "Successfully deleted" ); fetchAdminData(setData, category, "/products/findAll")})
 	}
 	return(
 		<> 
