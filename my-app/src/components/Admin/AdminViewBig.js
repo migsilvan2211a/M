@@ -1,8 +1,11 @@
 import React, { useState, useContext } from 'react';
 import { Tab, Nav, Row, Col, Form, Table, Button, Modal } from 'react-bootstrap';
-import "bootstrap/dist/css/bootstrap.min.css"
-import Swal from "sweetalert2"
-import AdminContext from '../Contexts/AdminContext'
+import "bootstrap/dist/css/bootstrap.min.css";
+import AdminContext from '../Contexts/AdminContext';
+import serverMessage from '../serverMessage';
+import fetchAdminData from './fetchAdminData';
+import uploadProduct from './uploadProduct';
+import TableData from './TableData';
 
 
 export default function AdminViewBig() {
@@ -182,46 +185,6 @@ function MyTable({header, data, search, category}) {
 	)
 }
 
-function TableData({header, myData, category}) {
-	const {setData} = useContext(AdminContext)	
-
-	const deleter = (id) => {
-		fetch(`https://infinite-sea-39312.herokuapp.com/${category}/delete/${id}`, 
-			{
-				method: "DELETE",
-				headers: {
-					"Content-Type": "application/json",
-					authorization: `Bearer ${localStorage.getItem("token")}`
-				}
-			}
-		).then(res => res.json())
-		.then(data => {serverMessage(data, "Product successfully deleted" ); fetchAdminData(setData, "products", "/products/findAll")})
-	}
-
-	return(
-		<> 
-			{
-				myData.map(x => { //print the items					
-					return (
-					<tr key={x._id}>
-						{
-							header.map(y => {
-								return (<td>{`${x[y]}`}</td>)
-							})
-						}
-						<td>
-							<Button>Update</Button>
-						</td>
-						<td>
-							<Button onClick={e => deleter(x._id) } >Delete</Button>
-						</td>
-					</tr>)
-				})
-			} 
-		</>		
-	);
-}
-
 function TableSearch({header, data, search, category}) {
 	let mySearch = search.toLowerCase();
 	let myData = data.filter(x => {
@@ -234,57 +197,6 @@ function TableSearch({header, data, search, category}) {
 	);
 }
 
-function fetchAdminData(setData, type, link) {
-	let header = []
-	if(type === "users")
-		 header = [
-			"_id",
-			"fName",
-			"lName",
-			"email",
-			"phone",
-			"bday",
-			"isAdmin",
-			"address"
-		];
-	else if(type === "products")
-		 header = [
-			"_id",
-			"name",
-			"description",
-			"prodIndx",
-			"price",
-			"stock",
-			"isActive",
-			"createdOn"
-	]
-	else if(type === "orders")
-		 header = [
-			"_id",
-			"customer",
-			"ordIndx",
-			"totalAmount",
-			"purchasedOn",
-			"productOrders"
-	]
-
-	let myData = {
-		header,
-		data: []
-	};
-
-	fetch(`https://infinite-sea-39312.herokuapp.com${link}`, {
-		headers: {
-			authorization: `Bearer ${localStorage.getItem("token")}`
-		}
-		})
-		.then(res => res.json())
-		.then(data => {myData.data = data; setData(myData)})
-	
-	
-	return;
-}
-
 function CreateProduct() {
 	const [show, setShow] = useState(false);
 	const handleClose = () => setShow(false);
@@ -294,31 +206,6 @@ function CreateProduct() {
 	const [description, setDescription] = useState('');
 	const [price, setPrice] = useState('');
 	const [stock, setStock] = useState('');	
-
-	function uploadProduct() {
-
-		fetch(`https://infinite-sea-39312.herokuapp.com/products/create`, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				authorization: `Bearer ${localStorage.getItem("token")}`
-			},
-			body: JSON.stringify({
-				name: name,
-				description: description,
-				price: price,
-				stock: stock
-			})
-		}).then(res => res.json())
-		.then(data => {
-			serverMessage(data, "Product saved successfully"); 
-			fetchAdminData(setData, "products", "/products/findAll")
-		})
-			setName('');
-			setDescription('');
-			setPrice('');
-			setStock('');
-	}
 
 	return(
 		<>
@@ -352,7 +239,7 @@ function CreateProduct() {
 				</Modal.Body>
 				<Modal.Footer>
 					<Button onClick={handleClose}>Close</Button>
-					<Button onClick={uploadProduct}>Submit</Button>
+					<Button onClick={e => uploadProduct(name, setName, description, setDescription, price, setPrice, stock, setStock, setData)}>Submit</Button>
 				</Modal.Footer>
 			</Modal>
 		</>
@@ -361,13 +248,3 @@ function CreateProduct() {
 
 }
 
-function serverMessage(data, toCheck) {
-	let message = data.message;
-	let error = data.error;
-	if(message === toCheck)
-		Swal.fire("Success!", toCheck, "success")
-	else if(message)
-		Swal.fire("Oops!", message, 'error')
-	else if(error)
-		Swal.fire("Oops!", error, 'error')
-}
