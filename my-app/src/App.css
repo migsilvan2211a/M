@@ -98,3 +98,7 @@ body {
 .linkDecor{
 	text-decoration: none;
 }
+
+.mb-custom {
+	margin-bottom: 5px;
+}
