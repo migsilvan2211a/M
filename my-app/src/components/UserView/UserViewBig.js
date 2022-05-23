@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Link, Navigate } from 'react-router';
 import { Button } from 'react-bootstrap'
+
 
 export default function UserViewBig() {
 	
@@ -9,9 +9,9 @@ export default function UserViewBig() {
 	return(
 		<div className="row m-0 p-0">
 			<div className="col-2 d-flex flex-column justify-content-center align-items-center">
-				<a href="#" className="linkDecor w-50" onClick={e => setUserPage(<UserProfile />)}>Profile</a>
-				<a href="#" className="linkDecor w-50" onClick={e => setUserPage(<UserOrders />)}>My Orders</a>
-				<a href="#" className="linkDecor w-50" onClick={e => setUserPage(<UserCart />)}>My Cart</a>
+				<Button className="linkDecor w-50" onClick={e => setUserPage(<UserProfile />)}>Profile</Button>
+				<Button className="linkDecor w-50" onClick={e => setUserPage(<UserOrders />)}>My Orders</Button>
+				<Button className="linkDecor w-50" onClick={e => setUserPage(<UserCart />)}>My Cart</Button>
 			</div>
 			<div className="col-10 p-5 border border-black">
 				{userPage}

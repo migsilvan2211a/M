@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Tab, Nav, Row, Col, Form, Table, Button, Modal } from 'react-bootstrap';
 import "bootstrap/dist/css/bootstrap.min.css"
 import Swal from "sweetalert2"
+import AdminContext from '../Contexts/AdminContext'
+
 
 export default function AdminViewBig() {
 	const [key, setKey] = useState("profile");
 	const [search, setSearch] = useState('');
-	let [data, setData] = useState();
+	const {data, setData} = useContext(AdminContext);
 
 	let myProp = {
 		search: search,
@@ -182,10 +184,10 @@ function MyTable({header, data, search, category}) {
 }
 
 function TableData({header, myData, category}) {
-	const [renderer, setRenderer] = useState(0);
+	const {data, setData} = useContext(AdminContext)	
 
 	const deleter = (id) => {
-		fetch(`http://localhost:3500/${category}/delete/${id}`, 
+		fetch(`https://infinite-sea-39312.herokuapp.com/${category}/delete/${id}`, 
 			{
 				method: "DELETE",
 				headers: {
@@ -194,31 +196,29 @@ function TableData({header, myData, category}) {
 				}
 			}
 		).then(res => res.json())
-		.then(data => {serverMessage(data, "Product successfully deleted" ); setRenderer(renderer+1)})
+		.then(data => {serverMessage(data, "Product successfully deleted" ); fetchAdminData(setData, "products", "/products/findAll")})
 	}
 
 	return(
-		<>
+		<> 
 			{
 				myData.map(x => { //print the items					
 					return (
-
 					<tr key={x._id}>
 						{
 							header.map(y => {
 								return (<td>{`${x[y]}`}</td>)
 							})
-
 						}
 						<td>
 							<Button>Update</Button>
 						</td>
 						<td>
-							<Button onClick={deleter(x._id)}>Delete</Button>
+							<Button onClick={e => deleter(x._id) } >Delete</Button>
 						</td>
 					</tr>)
 				})
-			}
+			} 
 		</>		
 	);
 }
@@ -274,7 +274,7 @@ function fetchAdminData(setData, type, link) {
 		data: []
 	};
 
-	fetch(`http://localhost:3500${link}`, {
+	fetch(`https://infinite-sea-39312.herokuapp.com${link}`, {
 		headers: {
 			authorization: `Bearer ${localStorage.getItem("token")}`
 		}
@@ -290,14 +290,15 @@ function CreateProduct() {
 	const [show, setShow] = useState(false);
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
-
+	const {setData} = useContext(AdminContext);
 	const [name, setName] = useState('');
 	const [description, setDescription] = useState('');
 	const [price, setPrice] = useState('');
 	const [stock, setStock] = useState('');	
 
 	function uploadProduct() {
-		fetch('http://localhost:3500/products/create', {
+
+		fetch(`https://infinite-sea-39312.herokuapp.com/products/create`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -309,7 +310,15 @@ function CreateProduct() {
 				price: price,
 				stock: stock
 			})
-		}).then(res => res.json()).then(data => serverMessage(data, "Product saved successfully"))
+		}).then(res => res.json())
+		.then(data => {
+			serverMessage(data, "Product saved successfully"); 
+			fetchAdminData(setData, "products", "/products/findAll")
+		})
+			setName('');
+			setDescription('');
+			setPrice('');
+			setStock('');
 	}
 
 	return(

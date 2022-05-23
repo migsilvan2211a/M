@@ -1,12 +1,9 @@
-import React, {useContext} from 'react';
-import {Link} from 'react-router-dom';
-import UserContext from '../UserContext';
-import UserViewBig from '../components/UserViewBig';
-import UserViewSmall from '../components/UserViewSmall';
+import React from 'react';
+import UserViewBig from '../components/UserView/UserViewBig';
+import UserViewSmall from '../components/UserView/UserViewSmall';
 import { useMediaQuery } from 'react-responsive';
 
 export default function User() {
-	const {user} = useContext(UserContext);
 
 	const isSmall = useMediaQuery( { maxWidth: 750 });
 

@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import { Navbar, Nav } from 'react-bootstrap';
 import { useContext } from 'react';
-import UserContext from '../UserContext';
+import UserContext from '../../UserContext';
 
 export default function NavbarSmall() {
 	const {user} = useContext(UserContext);
@@ -23,7 +23,7 @@ export default function NavbarSmall() {
 						<Nav.Link as={Link} className="p-1" to="/register" >Sign up</Nav.Link>
 					</> :
 						<>
-							{(user.isAdmin == "true") ? <Nav.Link as={Link} className="p-1" to="/admin">Admin Dashborad</Nav.Link> : 
+							{(user.isAdmin === "true") ? <Nav.Link as={Link} className="p-1" to="/admin">Admin Dashborad</Nav.Link> : 
 							<Nav.Link as={Link} className="p-1" to="/user">My Account</Nav.Link>}
 							<Nav.Link as={Link} className="p-1" to="/logout">Logout</Nav.Link>
 						</>

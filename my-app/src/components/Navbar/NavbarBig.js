@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Navbar, Nav } from 'react-bootstrap';
 import { useContext } from 'react';
-import UserContext from '../UserContext';
+import UserContext from '../../UserContext';
 export default function NavbarBig() {
 	const {user} = useContext(UserContext);
 	return(
@@ -21,7 +21,7 @@ export default function NavbarBig() {
 				{	(user.token) ? 
 					<>
 						{
-							(user.isAdmin == "true") ?
+							(user.isAdmin === "true") ?
 							<Nav.Link as={Link} className="p-1" to="/admin">Admin Dashboard</Nav.Link>:
 							<Nav.Link as={Link} className="p-1" to="/user">My Account</Nav.Link>
 						}

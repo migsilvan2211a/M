@@ -1,4 +1,4 @@
-import AppNavbar from './AppNavbar'
+import AppNavbar from '../Navbar/AppNavbar'
 export default function HomeBig() {
 	return(
 		<>

@@ -9,6 +9,7 @@
 	import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 	import pic1 from '../pictures/clothes1.jpg'
 
+
 export default function Register() {
 	//useStates
 		const [fName, setFName] = useState('');
@@ -95,7 +96,7 @@ export default function Register() {
 	}, [region, prov, mun, brgy, zip])
 	function registerUser(e) {
 		e.preventDefault();
-		fetch("http://localhost:3500/users/register", {
+		fetch(`https://infinite-sea-39312.herokuapp.com/users/register`, {
 			method: "POST",
 			headers: {"Content-Type" : "application/json"},
 			body: JSON.stringify({

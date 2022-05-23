@@ -1,13 +1,14 @@
 import React, {useState} from 'react';
 import {Card, Row, Col} from 'react-bootstrap';
-import ProductsCard from '../components/ProductsCard';
+import ProductsCard from '../components//Products/ProductsCard';
+
 export default function Products() {
 	
 	const [products, setProducts] = useState([]);
 	const [notFound, setNotFound] = useState(true);
 	const [page, setPage] = useState(1);
 	
-	fetch("http://localhost:3500/products/findAll").then(res => res.json()).then(data => {
+	fetch(`https://infinite-sea-39312.herokuapp.com/products/findAll`).then(res => res.json()).then(data => {
 		if(data.message)
 			setNotFound(true);
 		else

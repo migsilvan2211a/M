@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
-import AppNavbar from './components/AppNavbar';
+import AppNavbar from './components/Navbar/AppNavbar';
 import Register from './pages/Register'
 import Login from './pages/Login';
 import Logout from './pages/Logout';
