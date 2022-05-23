@@ -38,11 +38,11 @@ function Products({data, ...props}) {
 			<h3>Manage Products</h3>
 			<hr />
 			<Row>
-				<Col xs={10}>
-					<Search {...props} className="m-0 p-0 col"/>
+				<Col xs={8} lg={10} className="ps-3 pe-0">
+					<Search {...props} className="m-0 p-0"/>
 				</Col>
-				<Col xs={2}>				
-					<CreateProduct className="m-0 p-0 col"/>
+				<Col xs={4} lg={2} className="ps-3 pe-0 me-0">				
+					<CreateProduct className="m-0 p-0"/>
 				</Col>
 			</Row>
 			<div className="overflow-auto mt-3">

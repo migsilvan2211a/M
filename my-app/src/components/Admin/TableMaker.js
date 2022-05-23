@@ -64,7 +64,7 @@ function MyTable({header, data, search, category}) {
 			<tbody>
 				{
 					(data.message) ?
-					<tr>No Data Yet</tr> :
+					<tr><td colSpan={6}>No Data Yet</td></tr> :
 					(search) ?
 					<TableSearch {...myProp} /> :
 					<TableData {...myProp2} />

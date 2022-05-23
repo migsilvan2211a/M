@@ -18,6 +18,7 @@ export default function AdminViewBig() {
 	
 	myProp.data = data;
 
+	
 
 	return(
 		<Tab.Container activeKey={key} onSelect={k => setKey(k)} mountOnEnter unmountOnExit  >
@@ -25,19 +26,19 @@ export default function AdminViewBig() {
 				<Col xs={3} className="m-0 px-4 py-3">
 					<Nav variant="pills" className="flex-column" >
 						<Nav.Item>
-							<Nav.Link onClick={e => {setSearch('')}} eventKey="profile">My Profile</Nav.Link>
+							<Nav.Link onClick={e => setSearch('')} eventKey="profile">My Profile</Nav.Link>
 						</Nav.Item>
 
 						<Nav.Item>
-							<Nav.Link onClick={e => {setSearch(''); fetchAdminData(setData, "users", "/users/getAll") }} eventKey="users">Users</Nav.Link>
+							<Nav.Link onClick={e => {setSearch(''); fetchAdminData(setData, "users", "/users/getAll")}} eventKey="users">Users</Nav.Link>
 						</Nav.Item>
 
 						<Nav.Item>
-							<Nav.Link onClick={e => {setSearch(''); fetchAdminData(setData, "products", "/products/findAll") }} eventKey="products">Products</Nav.Link>
+							<Nav.Link onClick={e => {setSearch(''); fetchAdminData(setData, "products", "/products/findAll" )}} eventKey="products">Products</Nav.Link>
 						</Nav.Item>
 
 						<Nav.Item>
-							<Nav.Link onClick={e => {setSearch(''); fetchAdminData(setData, "orders", "/orders/getAll") }} eventKey="orders">Orders</Nav.Link>
+							<Nav.Link onClick={e => {setSearch(''); fetchAdminData(setData, "orders", "/orders/getAll" )}} eventKey="orders">Orders</Nav.Link>
 						</Nav.Item>
 					</Nav>
 				</Col>

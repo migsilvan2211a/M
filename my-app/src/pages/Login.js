@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import {useMediaQuery} from 'react-responsive'
 import LoginBig from '../components/Login/LoginBig';
 import LoginSmall from '../components/Login/LoginSmall';
@@ -7,12 +7,20 @@ import {useNavigate} from 'react-router-dom'
 import UserContext from '../UserContext';
 
 
-const Login = () => {
+
+export default function Login() {
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
   const isSmall = useMediaQuery({ maxWidth: 750 });
   const navi = useNavigate();
   const {setUser} = useContext(UserContext);
+
+  useEffect(() => {
+    if(localStorage.getItem("token"))
+      navi('/')
+  })
+
+
 
   const login = (e) => {
     e.preventDefault();
@@ -58,5 +66,3 @@ const Login = () => {
   );
 }
 
-
-export default Login;

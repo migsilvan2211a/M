@@ -10,6 +10,7 @@
 		text-decoration-line: none;
 		font-family: 'Montserrat', sans-serif;
 	}
+
 }
 
 @media (max-width: 768px) {
@@ -26,6 +27,7 @@
 		font-family: 'Montserrat', sans-serif;
 	}
 }
+
 
 * {
   padding: 0px;
@@ -91,14 +93,15 @@ body {
 	color: peach;
 }
 
-.loginBig {
-	width: 33vw;
-}
-
 .linkDecor{
 	text-decoration: none;
 }
 
 .mb-custom {
 	margin-bottom: 5px;
+}
+
+.loginCard {
+	width : 400px;
+	max-width: 400px;
 }

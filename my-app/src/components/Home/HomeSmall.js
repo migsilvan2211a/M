@@ -8,8 +8,18 @@ export default function HomeSmall() {
 			<Link className="myLink" to='/about'>About</Link>
 			<Link className="myLink" to='/contact'>Contact</Link>
 			<hr className="my-2" />
-			<Link className="myLink" to='/login'>Login</Link>
-			<Link className="myLink" to='/register'>Sign Up</Link>
+
+			{	
+				(localStorage.getItem("token")) ?
+					(localStorage.getItem("isAdmin") === "true") ?
+						<Link className="myLink" to='/admin'>Admin Dashboard</Link>:
+						<Link className="myLink" to='/user'>My Account</Link>
+				:
+				<>
+					<Link className="myLink" to='/login'>Login</Link>
+					<Link className="myLink" to='/register'>Sign Up</Link>
+				</>
+			}
 		</div>
 	);
 }
