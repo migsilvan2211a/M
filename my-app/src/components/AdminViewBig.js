@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Tabs, Tab, Nav, Row, Col, Form, Table, thead, tbody, th, Button, Modal } from 'react-bootstrap';
 import "bootstrap/dist/css/bootstrap.min.css"
+import Swal from "sweetalert2"
 
 export default function AdminViewBig() {
 	const [key, setKey] = useState("profile");
@@ -280,6 +281,29 @@ function CreateProduct() {
 	const [price, setPrice] = useState('');
 	const [stock, setStock] = useState('');	
 
+	function uploadProduct() {
+		fetch('http://localhost:3500/products/create', {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				authorization: `Bearer ${localStorage.getItem("token")}`
+			},
+			body: JSON.stringify({
+				name: name,
+				description: description,
+				price: price,
+				stock: stock
+			})
+		}).then(res => res.json()).then(data => {
+			let message = data.message;
+			let error = data.error;
+			if(message == "Product saved successfully")
+				Swal.fire("Success!", "Product saved successfully", "success")
+			else if(message || error)
+				Swal.fire("Oops!", message, 'error')
+		})
+	}
+
 	return(
 		<>
 			<Button onClick={handleShow}>New Product</Button>
@@ -312,7 +336,7 @@ function CreateProduct() {
 				</Modal.Body>
 				<Modal.Footer>
 					<Button onClick={handleClose}>Close</Button>
-					<Button>Submit</Button>
+					<Button onClick={uploadProduct}>Submit</Button>
 				</Modal.Footer>
 			</Modal>
 		</>
