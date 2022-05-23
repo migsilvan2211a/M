@@ -2,9 +2,10 @@ import React, {useContext} from 'react';
 import AdminContext from '../Contexts/AdminContext';
 import fetchAdminData from './fetchAdminData';
 import serverMessage from '../serverMessage';
-import { Button } from 'react-bootstrap';
+import { Button, Table } from 'react-bootstrap';
+import "bootstrap/dist/css/bootstrap.min.css";
 
-export default function TableData({header, myData, category}) {
+function TableData({header, myData, category}) {
 	const {setData} = useContext(AdminContext)	
 
 	const deleter = (id) => {
@@ -42,3 +43,47 @@ export default function TableData({header, myData, category}) {
 		</>		
 	);
 }
+
+function MyTable({header, data, search, category}) {
+	let myProp = {header, data, search, category};
+	let myData = data;
+	let myProp2 = {header, myData, category}
+	return(
+		<Table striped bordered hover>
+			<thead>
+				<tr>
+					{
+						header.map(x => {
+							return(<th>{x}</th>)
+						})
+					}
+					<th>Update</th>
+					<th>Delete</th>
+				</tr>
+			</thead>
+			<tbody>
+				{
+					(data.message) ?
+					<tr>No Data Yet</tr> :
+					(search) ?
+					<TableSearch {...myProp} /> :
+					<TableData {...myProp2} />
+				}
+			</tbody>
+		</Table>
+	)
+}
+
+function TableSearch({header, data, search, category}) {
+	let mySearch = search.toLowerCase();
+	let myData = data.filter(x => {
+		return JSON.stringify(x).toLowerCase().includes(mySearch)
+	})
+	let myProps = {header, myData, category}
+
+	return(
+		<TableData {...myProps} />
+	);
+}
+
+export {TableSearch, MyTable, TableData}

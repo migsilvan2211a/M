@@ -1,4 +1,8 @@
+import React, { useState, useContext } from 'react';
+import AdminContext from '../Contexts/AdminContext';
 import uploadProduct from './uploadProduct';
+import { Button, Modal, Form } from 'react-bootstrap';
+import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function CreateProduct() {
 	const [show, setShow] = useState(false);
