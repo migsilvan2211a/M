@@ -235,7 +235,7 @@ function fetchAdminData(setData, type, link) {
 		];
 	else if(type == "products")
 		 header = [
-			"id",
+			"_id",
 			"name",
 			"description",
 			"prodIndx",
@@ -246,7 +246,7 @@ function fetchAdminData(setData, type, link) {
 	]
 	else if(type == "orders")
 		 header = [
-			"id",
+			"_id",
 			"customer",
 			"ordIndx",
 			"totalAmount",
