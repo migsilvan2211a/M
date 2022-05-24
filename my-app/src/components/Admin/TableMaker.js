@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import AdminContext from '../Contexts/AdminContext';
 import fetchAdminData from './fetchAdminData';
 import serverMessage from '../serverMessage';
-import { Button, Table, Modal } from 'react-bootstrap';
+import { Button, Table, Modal, Form } from 'react-bootstrap';
 import "bootstrap/dist/css/bootstrap.min.css";
 
 
@@ -113,10 +113,11 @@ function TableSearch({header, data, search, category}) {
 	}
 
 	function Updater({x, category}) {
+		let updates = {}
 		const {setData} = useContext(AdminContext)	
 		const [show, setShow] = useState(false);
 		const handleShow = () => setShow(true);
-		const handleClose = () => setShow(false);
+		const handleClose = () => {setShow(false); updates = {}};
 		function updateFinal() {
 			fetch(`https://infinite-sea-39312.herokuapp.com/${category}/update/${x._id}`, 
 			{
@@ -124,21 +125,53 @@ function TableSearch({header, data, search, category}) {
 				headers: {
 					"Content-Type": "application/json",
 					authorization: `Bearer ${localStorage.getItem("token")}`
-				}
+				},
+				body: JSON.stringify({...updates})
 			}
 			).then(res => res.json())
 			.then(data => {serverMessage(data, "Successfully updated" ); fetchAdminData(setData, category, `/${category}/findAll`)})
 		}
 
+		function UpdateUser() {
+			if (x.isAdmin === "true")
+				updates = {isAdmin: true}
+			else
+				updates = {isAdmin: false}
+			return(
+				<Form>		
+					<h3 className="text-center">Notice!</h3>
+						
+					<p className="text-center my-0">Admins can only change "Admin" status</p>
+					{
+
+						(x.isAdmin === "true") ? 
+						<p className="text-center my-0">Change User to Admin?</p> :
+						<p className="text-center my-0">Change Admin to User only?</p>
+					}
+				</Form>
+
+			);
+		}
+
+		function UpdateProduct() {
+			return(<></>);
+		}
+
+		function UpdateOrder() {
+			return(<></>);
+		}
 		return(
 			<>
-				<Button onClick={handleShow}>Delete</Button>
+				<Button onClick={handleShow}>Update</Button>
 				<Modal show={show} onHide={handleClose} background="static" centered >
 					<Modal.Header closeButton >
-						<Modal.Title>Delete</Modal.Title>
+						<Modal.Title>Upate</Modal.Title>
 					</Modal.Header>
 					<Modal.Body>
-						<p>Are you sure you want to delete this item?</p>
+						
+						{(category === "users") ? <UpdateUser />:
+							(category === "products") ? <UpdateProduct /> :
+								<UpdateOrder />}
 					</Modal.Body>
 					<Modal.Footer>
 						<Button onClick={handleClose}>No</Button>
@@ -147,6 +180,9 @@ function TableSearch({header, data, search, category}) {
 				</Modal>
 			</>
 		)
+
+
+		
 	}
 
 export {TableSearch, MyTable, TableData}
