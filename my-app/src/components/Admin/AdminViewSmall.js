@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Tabs, Tab,  Nav, Row, Col } from 'react-bootstrap';
+import { Tabs, Tab } from 'react-bootstrap';
 import AdminContext from '../Contexts/AdminContext';
 import fetchAdminData from './fetchAdminData';
 import { Orders, Users, Products, Profile } from './ViewTabs';
