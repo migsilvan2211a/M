@@ -12,7 +12,9 @@ export default function CreateProduct() {
 	const [name, setName] = useState('');
 	const [description, setDescription] = useState('');
 	const [price, setPrice] = useState('');
-	const [stock, setStock] = useState('');	
+	const [stock, setStock] = useState('');
+	const [imgURL, setImgURL] = useState('');
+	const [style, setStyle] = useState('');	
 
 	return(
 		<>
@@ -42,11 +44,16 @@ export default function CreateProduct() {
 							<Form.Label>Stock:</Form.Label>
 							<Form.Control type="text" onChange={e => setStock(e.target.value)} value={stock} required/>
 						</Form.Group>
+
+						<Form.Group>
+							<Form.Label>Image Url:</Form.Label>
+							<Form.Control type="text" onChange={e => setImgURL(e.target.value)} value={imgURL} required/>
+						</Form.Group>
 					</Form>
 				</Modal.Body>
 				<Modal.Footer>
 					<Button onClick={handleClose}>Close</Button>
-					<Button onClick={e => uploadProduct(name, setName, description, setDescription, price, setPrice, stock, setStock, setData)}>Submit</Button>
+					<Button onClick={e => uploadProduct(name, setName, description, setDescription, price, setPrice, stock, setStock, setData, imgURL, setImgURL, style, setStyle)}>Submit</Button>
 				</Modal.Footer>
 			</Modal>
 		</>

@@ -1,7 +1,7 @@
 import serverMessage from '../Commons/serverMessage';
 import fetchAdminData from './fetchAdminData';
 
-export default function uploadProduct(name, setName, description, setDescription, price, setPrice, stock, setStock, setData) {
+export default function uploadProduct(name, setName, description, setDescription, price, setPrice, stock, setStock, setData, imgURL, setImgURL, style, setStyle) {
 	fetch(`https://infinite-sea-39312.herokuapp.com/products/create`, {
 		method: "POST",
 		headers: {
@@ -12,7 +12,11 @@ export default function uploadProduct(name, setName, description, setDescription
 			name: name,
 			description: description,
 			price: price,
-			stock: stock
+			stock: stock,
+			img: {
+				link: imgURL,
+				style: style
+			}
 		})
 	}).then(res => res.json())
 	.then(data => {
@@ -23,4 +27,5 @@ export default function uploadProduct(name, setName, description, setDescription
 		setDescription('');
 		setPrice('');
 		setStock('');
+		setImgURL('');
 }

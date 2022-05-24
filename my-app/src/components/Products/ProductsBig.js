@@ -6,7 +6,7 @@ import {getData, DrawCards, productSearch} from './ProductFunctions'
 
 export default function ProductsBig() {
 	const {products, setProducts, search, setSearch, page, setPage} = useContext(ProductsContext);
-	useEffect(() => getData(setProducts),)
+	useEffect(() => getData(setProducts), [])
 	return(
 		<div className="row p-0 m-0" style={{minHeight: "80vh"}}>
 			<div className="col-md-2 border border-black fitHeight m-0">

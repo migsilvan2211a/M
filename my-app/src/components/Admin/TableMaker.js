@@ -159,12 +159,18 @@ function TableSearch({header, data, search, category}) {
 			const [price, setPrice] = useState(x.price);
 			const [stock, setStock] = useState();
 			const [active, setActive] = useState(x.isActive);
+			const [imgURL, setImgURL] = useState(x.img.link);
+			const [style, setStyle] = useState(x.img.style);
 
 			updates = {
 				$set : {
 					"description": description,
 					"price": price,
-					"isActive": active
+					"isActive": active,
+					"img": {
+						"link": imgURL,
+						"style": style
+					}
 				},
 				$inc : { "stock": stock}
 			}
@@ -206,6 +212,10 @@ function TableSearch({header, data, search, category}) {
 						<Form.Control type="text" onChange={e => setDescription(e.target.value)} value={description} />
 					</Form.Group>
 					<Form.Group className="my-3">
+						<Form.Label>Picture: </Form.Label>
+						<Form.Control type="text" onChange={e => setImgURL(e.target.value)} value={imgURL} />
+					</Form.Group>
+					<Form.Group className="my-3">
 						<Form.Label>Price: </Form.Label>
 						<Form.Control type="text" onChange={e => setPrice(e.target.value)} value={price} />
 					</Form.Group>
@@ -214,6 +224,7 @@ function TableSearch({header, data, search, category}) {
 						<Form.Control type="text" onChange={e => setStock(e.target.value)} value={stock} />
 						<Form.Text className="text-muted">{`Current Stock: ${x.stock}`}</Form.Text>
 					</Form.Group>
+
 	
 					<Form.Group>
 						<ActivateDeactivate />
