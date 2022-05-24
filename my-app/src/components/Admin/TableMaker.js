@@ -2,9 +2,8 @@ import React, { useContext, useState } from 'react';
 import AdminContext from '../Contexts/AdminContext';
 import fetchAdminData from './fetchAdminData';
 import serverMessage from '../serverMessage';
-import { Button, Table, Modal, Form } from 'react-bootstrap';
+import { Button, Table, Modal, Form, Row, Col } from 'react-bootstrap';
 import "bootstrap/dist/css/bootstrap.min.css";
-
 
 function TableData({header, myData, category}) {
 	return(
@@ -118,8 +117,10 @@ function TableSearch({header, data, search, category}) {
 		const [show, setShow] = useState(false);
 		const handleShow = () => setShow(true);
 		const handleClose = () => {setShow(false); updates = {}};
+		
 		function updateFinal() {
-			fetch(`https://infinite-sea-39312.herokuapp.com/${category}/update/${x._id}`, 
+			let endLink = (category === "users") ? "/setAdmin" : `/update/${x._id}` ;
+			fetch(`https://infinite-sea-39312.herokuapp.com/${category}${endLink}`, 
 			{
 				method: "PUT",
 				headers: {
@@ -129,14 +130,14 @@ function TableSearch({header, data, search, category}) {
 				body: JSON.stringify({...updates})
 			}
 			).then(res => res.json())
-			.then(data => {serverMessage(data, "Successfully updated" ); fetchAdminData(setData, category, `/${category}/findAll`)})
+			.then(data => { serverMessage(data, "Successfully updated" ); fetchAdminData(setData, category, `/${category}/getAll`)})
 		}
 
 		function UpdateUser() {
-			if (x.isAdmin === "true")
-				updates = {isAdmin: true}
+			if (x.isAdmin === true)
+				updates = {email: x.email, isAdmin: false}
 			else
-				updates = {isAdmin: false}
+				updates = {email: x.email, isAdmin: true}
 			return(
 				<Form>		
 					<h3 className="text-center">Notice!</h3>
@@ -154,7 +155,72 @@ function TableSearch({header, data, search, category}) {
 		}
 
 		function UpdateProduct() {
-			return(<></>);
+			const [description, setDescription] = useState(x.description);
+			const [price, setPrice] = useState(x.price);
+			const [stock, setStock] = useState();
+			const [active, setActive] = useState(x.isActive);
+
+			updates = {
+				$set : {
+					"description": description,
+					"price": price,
+					"isActive": active
+				},
+				$inc : { "stock": stock}
+			}
+			function ActivateDeactivate() {
+				return(
+					<Row>	
+						<Col xs={3} style={{borderRight: "4px solid grey"}}>
+							{
+								(active) ?
+								<Button onClick={e => setActive(false)}>Deactivate</Button> :
+								<Button onClick={e => setActive(true)}>Activate</Button>
+							}
+						</Col>
+
+						<Col xs={9} className="d-flex align-items-center">
+							{(active && x.isActive) ?
+							<Form.Text className="text-muted">Product is currently active.</Form.Text> :
+								(active) ?
+									<Form.Text className="text-muted">Product will be activated.</Form.Text> :
+										( !active && !x.isActive ) ?
+											<Form.Text className="text-muted">Product is not currently active.</Form.Text> :
+												<Form.Text className="text-muted">Product will be deactivated.</Form.Text>
+							}
+						</Col>
+					</Row>
+				)
+			}
+
+			return(
+				<Form>
+					
+					<Form.Group className="my-3">
+						<Form.Label>Name: </Form.Label>
+						<Form.Control type="text" value={x.name} disabled />
+						<Form.Text className="text'center text-muted">For security purposes, product name cannot be changed.</Form.Text>
+					</Form.Group>
+					<Form.Group className="my-3">
+						<Form.Label>Description: </Form.Label>
+						<Form.Control type="text" onChange={e => setDescription(e.target.value)} value={description} />
+					</Form.Group>
+					<Form.Group className="my-3">
+						<Form.Label>Price: </Form.Label>
+						<Form.Control type="text" onChange={e => setPrice(e.target.value)} value={price} />
+					</Form.Group>
+					<Form.Group className="my-3">
+						<Form.Label>Stock Amount +/-:</Form.Label>
+						<Form.Control type="text" onChange={e => setStock(e.target.value)} value={stock} />
+						<Form.Text className="text-muted">{`Current Stock: ${x.stock}`}</Form.Text>
+					</Form.Group>
+	
+					<Form.Group>
+						<ActivateDeactivate />
+					</Form.Group>
+					
+				</Form>
+			);
 		}
 
 		function UpdateOrder() {
@@ -165,7 +231,7 @@ function TableSearch({header, data, search, category}) {
 				<Button onClick={handleShow}>Update</Button>
 				<Modal show={show} onHide={handleClose} background="static" centered >
 					<Modal.Header closeButton >
-						<Modal.Title>Upate</Modal.Title>
+						<Modal.Title>Update {`${category}`}: </Modal.Title>
 					</Modal.Header>
 					<Modal.Body>
 						
@@ -175,7 +241,7 @@ function TableSearch({header, data, search, category}) {
 					</Modal.Body>
 					<Modal.Footer>
 						<Button onClick={handleClose}>No</Button>
-						<Button onClick={updateFinal}>Yes</Button>
+						<Button onClick={e => {updateFinal(); handleClose()}}>Yes</Button>
 					</Modal.Footer>
 				</Modal>
 			</>
