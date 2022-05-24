@@ -1,29 +1,17 @@
-import React, {useContext} from 'react';
+import React, { useContext, useState } from 'react';
 import AdminContext from '../Contexts/AdminContext';
 import fetchAdminData from './fetchAdminData';
 import serverMessage from '../serverMessage';
-import { Button, Table } from 'react-bootstrap';
+import { Button, Table, Modal } from 'react-bootstrap';
 import "bootstrap/dist/css/bootstrap.min.css";
 
-function TableData({header, myData, category}) {
-	const {setData} = useContext(AdminContext)	
 
-	const deleter = (id) => {
-		fetch(`https://infinite-sea-39312.herokuapp.com/${category}/delete/${id}`, 
-			{
-				method: "DELETE",
-				headers: {
-					"Content-Type": "application/json",
-					authorization: `Bearer ${localStorage.getItem("token")}`
-				}
-			}
-		).then(res => res.json())
-		.then(data => {serverMessage(data, "Successfully deleted" ); fetchAdminData(setData, category, "/products/findAll")})
-	}
+function TableData({header, myData, category}) {
 	return(
 		<> 
 			{
-				myData.map(x => { //print the items					
+				myData.map(x => { //print the items
+					let toDelete = {x, category};			
 					return (
 					<tr key={x._id}>
 						{
@@ -35,7 +23,7 @@ function TableData({header, myData, category}) {
 							<Button>Update</Button>
 						</td>
 						<td>
-							<Button onClick={e => deleter(x._id) } >Delete</Button>
+							<Deleter {...toDelete} />
 						</td>
 					</tr>)
 				})
@@ -84,6 +72,44 @@ function TableSearch({header, data, search, category}) {
 	return(
 		<TableData {...myProps} />
 	);
+}
+
+//this function is called when you click the delete button on admin page. X is the whole document
+function Deleter({x, category}) { 
+	const {setData} = useContext(AdminContext)	
+	const [show, setShow] = useState(false);
+	const handleShow = () => setShow(true);
+	const handleClose = () => setShow(false);
+	function deleteFinal() {
+		fetch(`https://infinite-sea-39312.herokuapp.com/${category}/delete/${x._id}`, 
+		{
+			method: "DELETE",
+			headers: {
+				"Content-Type": "application/json",
+				authorization: `Bearer ${localStorage.getItem("token")}`
+			}
+		}
+		).then(res => res.json())
+		.then(data => {serverMessage(data, "Successfully deleted" ); fetchAdminData(setData, category, "/products/findAll")})
+	}
+
+	return(
+		<>
+			<Button onClick={handleShow}>Delete</Button>
+			<Modal show={show} onHide={handleClose} background="static" centered >
+				<Modal.Header closeButton >
+					<Modal.Title>Delete</Modal.Title>
+				</Modal.Header>
+				<Modal.Body>
+					<p>Are you sure you want to delete this item?</p>
+				</Modal.Body>
+				<Modal.Footer>
+					<Button onClick={handleClose}>No</Button>
+					<Button onClick={deleteFinal}>Yes</Button>
+				</Modal.Footer>
+			</Modal>
+		</>
+	)
 }
 
 export {TableSearch, MyTable, TableData}

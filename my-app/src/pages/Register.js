@@ -1,7 +1,7 @@
 //imports
 	import React, {useState, useEffect} from 'react';
 	import {Form, Button, Image} from 'react-bootstrap';
-	import Swal from 'sweetalert2';
+	import serverMessage from '../components/serverMessage'
 	import Datepicker from 'react-datepicker';
 	import phil from 'phil-reg-prov-mun-brgy';
 	import { useNavigate }  from 'react-router-dom';
@@ -65,7 +65,7 @@ export default function Register() {
 
 	function createBrgyChoice(e) { //uses region to get provinces
 		return (phil.getBarangayByMun(e.mun_code).map((x) => {
-					return <option value={JSON.stringify(x)} key={x.mun_code}>{x.name}</option>
+					return <option value={JSON.stringify(x)} key={x.name}>{x.name}</option>
 				}))
 	}
 
@@ -73,27 +73,29 @@ export default function Register() {
 		let x = JSON.parse(e)
 		setBrgy(x);
 	}
+	
+	//effects for activating next buttons
+		useEffect(() => {
+			if((email !== '' && pass !== '' && verPass !== '' && phone !== '') && (pass === verPass))
+				setActive1(true)	
+			else
+				setActive1(false)
+		}, [email, pass, verPass, phone]);
 
-	useEffect(() => {
-		if((email !== '' && pass !== '' && verPass !== '' && phone !== '') && (pass === verPass))
-			setActive1(true)	
-		else
-			setActive1(false)
-	}, [email, pass, verPass, phone]);
+		useEffect(() => {
+			if(fName !== '' && lName !== '' && bday !== '')
+				setActive2(true)
+			else
+				setActive2(false)
+		}, [fName, lName, bday]);
 
-	useEffect(() => {
-		if(fName !== '' && lName !== '' && bday !== '')
-			setActive2(true)
-		else
-			setActive2(false)
-	}, [fName, lName, bday]);
-
-	useEffect(() => {
-		if(region !== '' && prov !== '' && mun !== '' && brgy !== '' && zip !== '')
-			setActive3(true);
-		else
-			setActive3(false);
-	}, [region, prov, mun, brgy, zip])
+		useEffect(() => {
+			if(region !== '' && prov !== '' && mun !== '' && brgy !== '' && zip !== '')
+				setActive3(true);
+			else
+				setActive3(false);
+		}, [region, prov, mun, brgy, zip])
+	
 	function registerUser(e) {
 		e.preventDefault();
 		fetch(`https://infinite-sea-39312.herokuapp.com/users/register`, {
@@ -115,15 +117,7 @@ export default function Register() {
 				}
 			})
 
-		}).then(response => response.text()).then(data => {
-		if (data === "User successfully saved."){
-			Swal.fire("Success!", "Thank you for registering", "success");
-			navigate('/');
-		}
-		else
-			Swal.fire("Oops!", data, "error");
-		})
-
+		}).then(response => response.json()).then(data => serverMessage(data, "successfully saved"))
 	}
 
 	function reg1() {

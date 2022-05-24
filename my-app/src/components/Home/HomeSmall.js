@@ -11,9 +11,12 @@ export default function HomeSmall() {
 
 			{	
 				(localStorage.getItem("token")) ?
-					(localStorage.getItem("isAdmin") === "true") ?
+					<>
+						{(localStorage.getItem("isAdmin") === "true") ?
 						<Link className="myLink" to='/admin'>Admin Dashboard</Link>:
-						<Link className="myLink" to='/user'>My Account</Link>
+						<Link className="myLink" to='/user'>My Account</Link>}
+						<Link className="myLink" to='/logout'>Logout</Link>
+					</>
 				:
 				<>
 					<Link className="myLink" to='/login'>Login</Link>
