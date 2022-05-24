@@ -20,13 +20,7 @@ export default function AdminViewSmall() {
 
 	const changeTab = (k) => {
 		setSearch('');
-		if (k === "users") {
-			fetchAdminData(setData, "users", "/users/getAll")
-		}
-		else if(k === "products")
-			fetchAdminData(setData, "products", "/products/findAll")
-		else if(k === "orders")
-			fetchAdminData(setData, "orders", "/orders/getAll")
+		fetchAdminData(setData, k, `/${k}/getAll`)
 	}
 	return(
 		<Tabs activeKey={key} onSelect={k => {setKey(k); changeTab(k)}} mountOnEnter unmountOnExit >

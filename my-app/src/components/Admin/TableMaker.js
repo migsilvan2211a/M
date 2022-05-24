@@ -10,8 +10,8 @@ function TableData({header, myData, category}) {
 	return(
 		<> 
 			{
-				myData.map(x => { //print the items
-					let toDelete = {x, category};			
+				myData.map(x => { //print the items x
+					let forButton = {x, category};			
 					return (
 					<tr key={x._id}>
 						{
@@ -20,10 +20,10 @@ function TableData({header, myData, category}) {
 							})
 						}
 						<td>
-							<Button>Update</Button>
+							<Updater {...forButton} />
 						</td>
 						<td>
-							<Deleter {...toDelete} />
+							<Deleter {...forButton} />
 						</td>
 					</tr>)
 				})
@@ -31,7 +31,7 @@ function TableData({header, myData, category}) {
 		</>		
 	);
 }
-
+//MyTable directly returns table headers then calls the table list components
 function MyTable({header, data, search, category}) {
 	let myProp = {header, data, search, category};
 	let myData = data;
@@ -59,7 +59,7 @@ function MyTable({header, data, search, category}) {
 				}
 			</tbody>
 		</Table>
-	)
+	) 
 }
 
 function TableSearch({header, data, search, category}) {
@@ -74,42 +74,79 @@ function TableSearch({header, data, search, category}) {
 	);
 }
 
-//this function is called when you click the delete button on admin page. X is the whole document
-function Deleter({x, category}) { 
-	const {setData} = useContext(AdminContext)	
-	const [show, setShow] = useState(false);
-	const handleShow = () => setShow(true);
-	const handleClose = () => setShow(false);
-	function deleteFinal() {
-		fetch(`https://infinite-sea-39312.herokuapp.com/${category}/delete/${x._id}`, 
-		{
-			method: "DELETE",
-			headers: {
-				"Content-Type": "application/json",
-				authorization: `Bearer ${localStorage.getItem("token")}`
+//the delete/update function is called when you click the delete/update button on admin page. X is the whole document
+	function Deleter({x, category}) { 
+		const {setData} = useContext(AdminContext)	
+		const [show, setShow] = useState(false);
+		const handleShow = () => setShow(true);
+		const handleClose = () => setShow(false);
+		function deleteFinal() {
+			fetch(`https://infinite-sea-39312.herokuapp.com/${category}/delete/${x._id}`, 
+			{
+				method: "DELETE",
+				headers: {
+					"Content-Type": "application/json",
+					authorization: `Bearer ${localStorage.getItem("token")}`
+				}
 			}
+			).then(res => res.json())
+			.then(data => {serverMessage(data, "Successfully deleted" ); fetchAdminData(setData, category, `/${category}/findAll`)})
 		}
-		).then(res => res.json())
-		.then(data => {serverMessage(data, "Successfully deleted" ); fetchAdminData(setData, category, "/products/findAll")})
+
+		return(
+			<>
+				<Button onClick={handleShow}>Delete</Button>
+				<Modal show={show} onHide={handleClose} background="static" centered >
+					<Modal.Header closeButton >
+						<Modal.Title>Delete</Modal.Title>
+					</Modal.Header>
+					<Modal.Body>
+						<p>Are you sure you want to delete this item?</p>
+					</Modal.Body>
+					<Modal.Footer>
+						<Button onClick={handleClose}>No</Button>
+						<Button onClick={deleteFinal}>Yes</Button>
+					</Modal.Footer>
+				</Modal>
+			</>
+		)
 	}
 
-	return(
-		<>
-			<Button onClick={handleShow}>Delete</Button>
-			<Modal show={show} onHide={handleClose} background="static" centered >
-				<Modal.Header closeButton >
-					<Modal.Title>Delete</Modal.Title>
-				</Modal.Header>
-				<Modal.Body>
-					<p>Are you sure you want to delete this item?</p>
-				</Modal.Body>
-				<Modal.Footer>
-					<Button onClick={handleClose}>No</Button>
-					<Button onClick={deleteFinal}>Yes</Button>
-				</Modal.Footer>
-			</Modal>
-		</>
-	)
-}
+	function Updater({x, category}) {
+		const {setData} = useContext(AdminContext)	
+		const [show, setShow] = useState(false);
+		const handleShow = () => setShow(true);
+		const handleClose = () => setShow(false);
+		function updateFinal() {
+			fetch(`https://infinite-sea-39312.herokuapp.com/${category}/update/${x._id}`, 
+			{
+				method: "PUT",
+				headers: {
+					"Content-Type": "application/json",
+					authorization: `Bearer ${localStorage.getItem("token")}`
+				}
+			}
+			).then(res => res.json())
+			.then(data => {serverMessage(data, "Successfully updated" ); fetchAdminData(setData, category, `/${category}/findAll`)})
+		}
+
+		return(
+			<>
+				<Button onClick={handleShow}>Delete</Button>
+				<Modal show={show} onHide={handleClose} background="static" centered >
+					<Modal.Header closeButton >
+						<Modal.Title>Delete</Modal.Title>
+					</Modal.Header>
+					<Modal.Body>
+						<p>Are you sure you want to delete this item?</p>
+					</Modal.Body>
+					<Modal.Footer>
+						<Button onClick={handleClose}>No</Button>
+						<Button onClick={updateFinal}>Yes</Button>
+					</Modal.Footer>
+				</Modal>
+			</>
+		)
+	}
 
 export {TableSearch, MyTable, TableData}

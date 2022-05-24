@@ -34,7 +34,7 @@ export default function AdminViewBig() {
 						</Nav.Item>
 
 						<Nav.Item>
-							<Nav.Link onClick={e => {setSearch(''); fetchAdminData(setData, "products", "/products/findAll" )}} eventKey="products">Products</Nav.Link>
+							<Nav.Link onClick={e => {setSearch(''); fetchAdminData(setData, "products", "/products/getAll" )}} eventKey="products">Products</Nav.Link>
 						</Nav.Item>
 
 						<Nav.Item>
