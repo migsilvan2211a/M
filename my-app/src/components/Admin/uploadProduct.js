@@ -1,4 +1,4 @@
-import serverMessage from '../serverMessage';
+import serverMessage from '../Commons/serverMessage';
 import fetchAdminData from './fetchAdminData';
 
 export default function uploadProduct(name, setName, description, setDescription, price, setPrice, stock, setStock, setData) {
@@ -17,7 +17,7 @@ export default function uploadProduct(name, setName, description, setDescription
 	}).then(res => res.json())
 	.then(data => {
 		serverMessage(data, "Product saved successfully"); 
-		fetchAdminData(setData, "products", "/products/findAll")
+		fetchAdminData(setData, "products", "/products/getAll")
 	})
 		setName('');
 		setDescription('');

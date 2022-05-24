@@ -8,8 +8,7 @@ export default function Search({search, setSearch}) {
 			<Form>
 				<Form.Group>
 					<div className="d-flex flex-row align-items-center">
-						<Form.Label className="p-0 m-0 me-2 fitHeight d-inline-flex">Search: </Form.Label>
-						<Form.Control type="text" onChange={e => {setSearch(e.target.value);}} value={search} />
+						<Form.Control type="text" onChange={e => {setSearch(e.target.value);}} value={search} placeholder="Search" className="rounded-pill"/>
 					</div>
 				</Form.Group>
 			</Form>

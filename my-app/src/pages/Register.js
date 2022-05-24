@@ -1,7 +1,7 @@
 //imports
 	import React, {useState, useEffect} from 'react';
 	import {Form, Button, Image} from 'react-bootstrap';
-	import serverMessage from '../components/serverMessage'
+	import serverMessage from '../components/Commons/serverMessage'
 	import Datepicker from 'react-datepicker';
 	import phil from 'phil-reg-prov-mun-brgy';
 	import { useNavigate }  from 'react-router-dom';
@@ -33,6 +33,10 @@ export default function Register() {
 		const [isActive3, setActive3] = useState(false);
 	
 	const navigate = useNavigate();
+	 useEffect(() => {
+	    if(localStorage.getItem("token"))
+	      navigate('/')
+	  })
 	function handleRegion(e) { //takes region string chosen to convert to JSON
 		let x = JSON.parse(e)
 		setRegion(x);

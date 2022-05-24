@@ -5,7 +5,7 @@ import { useMediaQuery } from 'react-responsive';
 
 export default function User() {
 
-	const isSmall = useMediaQuery( { maxWidth: 750 });
+	const isSmall = useMediaQuery( { maxWidth: 768 });
 
 	return(
 		<div>

@@ -1,37 +1,28 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import {Card, Row, Col} from 'react-bootstrap';
 import ProductsCard from '../components//Products/ProductsCard';
+import Search from '../components/Commons/Search';
+import { useMediaQuery } from 'react-responsive';
+import { ProductsProvider } from '../components/Contexts/ProductsContext';
+import ProductsSmall from '../components/Products/ProductsSmall';
+import ProductsBig from '../components/Products/ProductsBig';
+
 
 export default function Products() {
-	
-	const [products, setProducts] = useState([]);
-	const [notFound, setNotFound] = useState(true);
+	const [search, setSearch] = useState('')
 	const [page, setPage] = useState(1);
-	
-	fetch(`https://infinite-sea-39312.herokuapp.com/products/findAll`).then(res => res.json()).then(data => {
-		if(data.message)
-			setNotFound(true);
-		else
-			setProducts(data);
-	})
-
-	function drawCards() {
-		for (let i = (page - 1)*10; i < page * 10 ; i++ ) {
-			<ProductsCard {...products[i]} />
-		}
-	}
-
-
-
+	const [products, setProducts] = useState([])
+	const isSmall = useMediaQuery({ maxWidth: 768 })
 
 	return(
-	<div className="row p-0 m-0 vh-100">
-		<div className="col-md-2 border border-black fitHeight m-0">
-
-		</div>
-		<div className="col-md-10 d-flex border border-black fitHeight m-0">
-			
-		</div>
-	</div>
+		<ProductsProvider value={{products, setProducts, page, setPage, search, setSearch}}>
+		{ 
+			(isSmall) ?
+			<ProductsSmall /> :
+			<ProductsBig />
+		}
+		</ProductsProvider>
 	);
 }
+
+

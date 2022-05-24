@@ -4,7 +4,7 @@ import AdminViewSmall from '../components/Admin/AdminViewSmall';
 import { useMediaQuery } from 'react-responsive'
 import { AdminProvider } from '../components/Contexts/AdminContext';
 export default function Admin() {
-	const isSmall = useMediaQuery({ maxWidth: 750});
+	const isSmall = useMediaQuery({ maxWidth: 768});
 	let [data, setData] = useState();
 	return(
 		<div>

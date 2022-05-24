@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation} from 'react-router-dom';
 import AppNavbar from './components/Navbar/AppNavbar';
 import Register from './pages/Register'
 import Login from './pages/Login';
@@ -10,6 +10,7 @@ import Admin from './pages/Admin';
 import User from './pages/User';
 import Contact from './pages/Contact';
 import About from './pages/About';
+import SingleProduct from './pages/SingleProduct';
 import {UserProvider} from './UserContext'
 import './App.css'
 
@@ -33,6 +34,7 @@ function App() {
             <Route path="/user" element={ <User /> } />
             <Route path="/contact" element={ <Contact /> } />
             <Route path="/about" element={ <About /> } />
+            <Route path="/products/get/:id" element={ <SingleProduct /> } />
         	</Routes>
       </UserProvider>
     </>

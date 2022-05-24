@@ -1,5 +1,5 @@
 import { MyTable } from './TableMaker';
-import Search from './Search'
+import Search from '../Commons/Search'
 import CreateProduct from './CreateProduct';
 import { Row, Col } from 'react-bootstrap'
 

@@ -11,16 +11,13 @@ import UserContext from '../UserContext';
 export default function Login() {
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
-  const isSmall = useMediaQuery({ maxWidth: 750 });
+  const isSmall = useMediaQuery({ maxWidth: 768 });
   const navi = useNavigate();
   const {setUser} = useContext(UserContext);
-
-  useEffect(() => {
-    if(localStorage.getItem("token"))
-      navi('/')
-  })
-
-
+   useEffect(() => {
+      if(localStorage.getItem("token"))
+        navi('/')
+    })
 
   const login = (e) => {
     e.preventDefault();

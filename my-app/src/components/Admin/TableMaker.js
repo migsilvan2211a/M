@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import AdminContext from '../Contexts/AdminContext';
 import fetchAdminData from './fetchAdminData';
-import serverMessage from '../serverMessage';
+import serverMessage from '../Commons/serverMessage';
 import { Button, Table, Modal, Form, Row, Col } from 'react-bootstrap';
 import "bootstrap/dist/css/bootstrap.min.css";
 
