@@ -17,7 +17,7 @@ export default function ProductsBig() {
 					<Search {...{search, setSearch}} />
 				</Row>
 				<Row className="container-fluid d-flex flex-row mt-3">
-					<DrawCards {...{products, setProducts, page}} />
+					<DrawCards {...{products, setProducts, page, search}} />
 				</Row>	
 			</div>
 		</div>

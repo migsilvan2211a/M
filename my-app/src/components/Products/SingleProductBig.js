@@ -15,7 +15,8 @@ export default function SingleProductBig() {
 	let [quantity, setQuantity] = useState(0);
 	let style = {
 		width: "510px",
-		height: "450px"
+		height: "450px",
+		objectFit: "cover"
 	}	
 	
 
@@ -41,7 +42,7 @@ export default function SingleProductBig() {
 		<div>
 			<div className="p-5 d-inline-flex justify-content-center align-items-center container-fluid">
 				<div style={{...style}}>
-					<Image src={link} style={{...style}}/>
+					<Image src={link} style={{...style}} className="border border-black"/>
 				</div>
 
 				<div style={{height: "450px", width: "300px", backgroundColor: "papayawhip"}} className="p-3 pt-5 m-0">
@@ -51,9 +52,9 @@ export default function SingleProductBig() {
 						<hr className="p-0 m-0 mb-3"/>
 						<h5 className="p-0 m-0">₱{product.price}</h5>
 						<p className="m-0 p-0">Items left: {product.stock}</p>
-						<p className="m-0 p-0 mb-3">Quantity: 
-						<Button className="mx-1 py-0 px-1" variant="outline-dark"onClick={qDown}> - </Button> {quantity}
-						<Button className="mx-2 py-0 px-1" variant="outline-dark"onClick={qUp}> + </Button>
+						<p className="m-0 p-0 mb-3">Qty: {quantity}  
+						<Button className="mx-1 py-0 px-1" variant="outline-dark"onClick={qDown}> - </Button> 
+						<Button className="mx-0 py-0 px-1" variant="outline-dark"onClick={qUp}> + </Button>
 						</p>
 					</Row>
 					<Row className='p-3'>

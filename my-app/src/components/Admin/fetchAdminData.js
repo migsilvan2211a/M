@@ -1,3 +1,5 @@
+import invalidCredentials from '../Commons/invalidCredentials'
+
 export default function fetchAdminData(setData, type, link) {
 	let header = []
 	if(type === "users")
@@ -43,7 +45,11 @@ export default function fetchAdminData(setData, type, link) {
 		}
 		})
 		.then(res => res.json())
-		.then(data => {myData.data = data; setData(myData)})
+		.then(data => {
+			if (data.error == "Invalid Credentials")
+				return invalidCredentials();
+			myData.data = data;
+			setData(myData)})
 	
 	
 	return;

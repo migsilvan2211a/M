@@ -4,6 +4,7 @@ import fetchAdminData from './fetchAdminData';
 import serverMessage from '../Commons/serverMessage';
 import { Button, Table, Modal, Form, Row, Col } from 'react-bootstrap';
 import "bootstrap/dist/css/bootstrap.min.css";
+import invalidCredentials from '../Commons/invalidCredentials'
 
 function TableData({header, myData, category}) {
 	return(
@@ -89,7 +90,11 @@ function TableSearch({header, data, search, category}) {
 				}
 			}
 			).then(res => res.json())
-			.then(data => {serverMessage(data, "Successfully deleted" ); fetchAdminData(setData, category, `/${category}/findAll`)})
+			.then(data => {
+				if (data.error == "Invalid Credentials")
+					return invalidCredentials();
+				serverMessage(data, "Successfully deleted" );
+				fetchAdminData(setData, category, `/${category}/findAll`)})
 		}
 
 		return(
@@ -130,7 +135,11 @@ function TableSearch({header, data, search, category}) {
 				body: JSON.stringify({...updates})
 			}
 			).then(res => res.json())
-			.then(data => { serverMessage(data, "Successfully updated" ); fetchAdminData(setData, category, `/${category}/getAll`)})
+			.then(data => {
+				if (data.error == "Invalid Credentials")
+					return invalidCredentials();
+				serverMessage(data, "Successfully updated" );
+				fetchAdminData(setData, category, `/${category}/getAll`)})
 		}
 
 		function UpdateUser() {
