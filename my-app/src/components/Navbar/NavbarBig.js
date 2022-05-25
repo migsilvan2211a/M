@@ -22,17 +22,17 @@ export default function NavbarBig() {
 					<>
 						{
 							(user.isAdmin === "true") ?
-							<Nav.Link as={Link} className="p-1" to="/admin">Admin Dashboard</Nav.Link>:
-							<Nav.Link as={Link} className="p-1" to="/user">My Account</Nav.Link>
+							<Nav.Link as={Link} className="p-1 myLink" to="/admin">Admin Dashboard</Nav.Link>:
+							<Nav.Link as={Link} className="p-1 myLink" to="/user">My Account</Nav.Link>
 						}
 					
-					<Nav.Link as={Link} className="p-1" to="/logout">Logout</Nav.Link>
+					<Nav.Link as={Link} className="p-1 myLink" to="/logout">Logout</Nav.Link>
 					</>
 					:
 						
 					<>
-						<Nav.Link as={Link} className="p-1" to="/login" >Log in</Nav.Link>
-						<Nav.Link as={Link} className="p-1" to="/register" >Sign up</Nav.Link>
+						<Nav.Link as={Link} className="p-1 myLink" to="/login" >Log in</Nav.Link>
+						<Nav.Link as={Link} className="p-1 myLink" to="/register" >Sign up</Nav.Link>
 					</>
 				}
 			</div>

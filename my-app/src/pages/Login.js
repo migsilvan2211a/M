@@ -3,7 +3,7 @@ import {useMediaQuery} from 'react-responsive'
 import LoginBig from '../components/Login/LoginBig';
 import LoginSmall from '../components/Login/LoginSmall';
 import Swal from 'sweetalert2';
-import {useNavigate} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom';
 import UserContext from '../UserContext';
 
 

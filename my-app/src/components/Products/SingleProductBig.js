@@ -5,7 +5,7 @@ import SingleProductContext from '../Contexts/SingleProductContext';
 import serverMessage from '../Commons/serverMessage'
 import { useNavigate } from 'react-router-dom'
 import invalidCredentials from '../Commons/invalidCredentials'
-import AddToCart from './AddToCart';
+
 
 export default function SingleProductBig() {
 	const navi = useNavigate();
@@ -13,13 +13,34 @@ export default function SingleProductBig() {
 	const link = (product.img && product.img.link) ? product.img.link : "https://www.navigation.com/static/WFS/Shop-CitroenEMEA-Site/-/Shop-CitroenEMEA/en_GB/Product%20Not%20Found.png"
 	const qUp = () => {if(quantity < product.stock) setQuantity(++quantity)}
 	const qDown = () => {if(quantity > 0) setQuantity(--quantity)}
-	const cartHandle = () => <AddToCart {...{id, quantity}} />;
+	const cartHandle = () => addToCart(id, quantity);
 	let [quantity, setQuantity] = useState(0);
 	let style = {
 		width: "510px",
 		height: "450px",
 		objectFit: "cover"
 	}	
+
+	function addToCart(id, quantity) { //prodId, orderNum
+		fetch(`https://infinite-sea-39312.herokuapp.com/orders/updateCart`, {
+			method: "PUT",
+			headers: {
+				authorization: `Bearer ${localStorage.getItem("token")}`,
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify({
+				productId: id,
+				orderNum: quantity
+			})
+		}).then(res => res.json()).then(data => { 
+			if (data.error == "Invalid Credentials")
+				return invalidCredentials();
+			serverMessage(data, "cart")
+			navi('/products'); 
+
+		});
+	}
+
 
 	return(
 		<div>

@@ -7,7 +7,7 @@ export default function invalidCredentials() {
 		localStorage.clear();
 	}
 	else
-		Swal.fire("Your are note logged in", "Please log in", "warning");
+		Swal.fire("Your are note logged in", "Please log in again", "warning");
 		
 	return (<Navigate to="/login" />)
 }
