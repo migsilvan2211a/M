@@ -1,7 +1,7 @@
 import serverMessage from '../Commons/serverMessage';
 import fetchAdminData from './fetchAdminData';
 import invalidCredentials from '../Commons/invalidCredentials'
-import React, {useState} from 'react'
+
 export default function uploadProduct(name, setName, description, setDescription, price, setPrice, stock, setStock, setData, imgURL, setImgURL, style, setStyle) {
 	fetch(`https://infinite-sea-39312.herokuapp.com/products/create`, {
 		method: "POST",
@@ -26,11 +26,9 @@ export default function uploadProduct(name, setName, description, setDescription
 		serverMessage(data, "Product saved successfully"); 
 		fetchAdminData(setData, "products", "/products/getAll")
 	})
-		useState(() => { //this useState might be problematic need to test
-			setName('');
 			setDescription('');
 			setPrice('');
 			setStock('');
 			setImgURL('');
-		}, []);
+
 	}

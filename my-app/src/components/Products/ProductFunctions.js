@@ -23,7 +23,7 @@ function DrawCards({products, setProducts, page, search}) { //products is an arr
 		cards.push(<ProductsCard {...toRender[i]} />);
 	}
 
-	return (<div className="d-flex flex-wrap justify-content-center g-0">{cards}</div>);
+	return (<div className="d-flex flex-wrap justify-content-center ">{cards}</div>);
 }
 
 function productSearch(products, search) {

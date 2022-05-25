@@ -11,6 +11,10 @@
 		font-family: 'Montserrat', sans-serif;
 	}
 
+	.cardWidth {
+		width: 220px;
+	}
+
 }
 
 @media (max-width: 768px) {
@@ -26,6 +30,10 @@
 		text-decoration-line: none;
 		font-family: 'Montserrat', sans-serif;
 	}
+
+	.cardWidth {
+		width: 35vw;
+	}
 }
 
 
@@ -39,7 +47,7 @@ body {
   height:  100%;
 }
 
-.fitHeight {
+.fitHeight { 
   min-height: 100%;
 }
 
@@ -106,6 +114,6 @@ body {
 	max-width: 400px;
 }
 
-.prodCard:hover {
+.cardHighlight:hover {
 	background-color: papayawhip;
 }
