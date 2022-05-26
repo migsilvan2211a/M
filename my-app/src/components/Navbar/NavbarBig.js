@@ -6,7 +6,7 @@ export default function NavbarBig() {
 	const {user} = useContext(UserContext);
 	return(
 		<>
-		<Navbar expand="lg" className="container-fluid py-0 px-3 m-0 d-flex justify-content-between ">
+		<Navbar expand="lg" className="container-fluid py-0 px-3 m-0 d-flex justify-content-between " style={{backgroundColor: "papayawhip"}}>
 			<div className="d-flex p-0 m-0">
 				<Navbar.Brand className="m-0 px-2 py-0" id='MNavbar'>M</Navbar.Brand>
 				<div className="d-flex justify-self-start pt-3 pb-0 m-0">

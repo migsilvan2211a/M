@@ -8,8 +8,8 @@ export default function NavbarSmall() {
 	const {user} = useContext(UserContext);
 	console.log(typeof user);
 	return(
-		<Navbar expand="lg" className="px-3 py-0 m-0" bg="dark" variant="dark">
-			<Navbar.Brand className="m-0 pe-3 py-0 white-text" id="MNavbar">M</Navbar.Brand>
+		<Navbar expand="lg" className="px-3 py-0 m-0" style={{backgroundColor: "papayawhip"}}>
+			<Navbar.Brand className="m-0 pe-3 py-0 " id="MNavbar">M</Navbar.Brand>
 			<Navbar.Toggle/>
 			<Navbar.Collapse>
 				<Nav>

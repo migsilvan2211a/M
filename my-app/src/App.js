@@ -13,6 +13,7 @@ import About from './pages/About';
 import SingleProduct from './pages/SingleProduct';
 import {UserProvider} from './UserContext'
 import './App.css'
+import Footer from './components/Footer/Footer'
 
 function App() {
   
@@ -36,6 +37,7 @@ function App() {
             <Route path="/about" element={ <About /> } />
             <Route path="/products/get/:id" element={ <SingleProduct /> } />
         	</Routes>
+          <Footer />
       </UserProvider>
     </>
   );
