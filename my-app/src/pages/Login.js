@@ -36,11 +36,13 @@ export default function Login() {
           localStorage.setItem("isAdmin", JSON.stringify(data.isAdmin).replace(/"/g, ""));
           localStorage.setItem("email", JSON.stringify(data.email).replace(/"/g, ""));
           localStorage.setItem("fullName", JSON.stringify(data.fullName).replace(/"/g, ""));
+          localStorage.setItem("id", JSON.stringify(data.id).replace(/"/g, ""));
           setUser({
             token: localStorage.getItem('token'),
             email: localStorage.getItem('email'),
             isAdmin: localStorage.getItem('isAdmin'),
-            fullName: localStorage.getItem('fullname')
+            fullName: localStorage.getItem('fullname'),
+            id: localStorage.getItem("id")
           });
           Swal.fire("Welcome!", "Successfully logged in", "success").then(() => navi("/"));
     

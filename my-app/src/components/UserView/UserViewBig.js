@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { Tab, Nav, Row, Col } from 'react-bootstrap';
 import UserContext2 from '../Contexts/UserContext2';
 import fetchUserData from './fetchUserData';
-import { Profile } from './ViewTabs';
+import { Profile, Cart, Orders } from './ViewTabs';
 
 
 export default function UserViewBig() {
@@ -26,19 +26,15 @@ export default function UserViewBig() {
 				<Col xs={3} className="m-0 px-4 py-3">
 					<Nav variant="pills" className="flex-column" >
 						<Nav.Item>
-							<Nav.Link onClick={e => setSearch('')} eventKey="profile">My Profile</Nav.Link>
+							<Nav.Link onClick={e => {setSearch(''); fetchUserData(setData)}} eventKey="profile">My Profile</Nav.Link>
 						</Nav.Item>
 
 						<Nav.Item>
-							<Nav.Link onClick={e => {setSearch(''); fetchUserData(setData, "profile", "/users/getAll")}} eventKey="profile">My Profile</Nav.Link>
+							<Nav.Link onClick={e => {setSearch(''); fetchUserData(setData)}} eventKey="cart">My Cart</Nav.Link>
 						</Nav.Item>
 
 						<Nav.Item>
-							<Nav.Link onClick={e => {setSearch(''); fetchUserData(setData, "cart", "/products/getAll" )}} eventKey="cart">My Cart</Nav.Link>
-						</Nav.Item>
-
-						<Nav.Item>
-							<Nav.Link onClick={e => {setSearch(''); fetchUserData(setData, "orders", "/orders/getAll" )}} eventKey="orders">My Orders</Nav.Link>
+							<Nav.Link onClick={e => {setSearch(''); fetchUserData(setData)}} eventKey="orders">My Orders</Nav.Link>
 						</Nav.Item>
 					</Nav>
 				</Col>
@@ -49,12 +45,8 @@ export default function UserViewBig() {
 							<Profile />
 						</Tab.Pane>
 
-						<Tab.Pane eventKey="users" mountOnEnter unmountOnExit >
-							<Users {...myProp} />
-						</Tab.Pane>
-
-						<Tab.Pane eventKey="products" mountOnEnter unmountOnExit >
-							<Products {...myProp} />
+						<Tab.Pane eventKey="cart" mountOnEnter unmountOnExit >
+							<Cart {...myProp} />
 						</Tab.Pane>
 
 						<Tab.Pane eventKey="orders" mountOnEnter unmountOnExit >

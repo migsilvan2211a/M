@@ -1,4 +1,4 @@
-import React, {useEffect, useContext } from 'react';
+import React, {useEffect, useContext, useState } from 'react';
 import UserViewBig from '../components/UserView/UserViewBig';
 import UserViewSmall from '../components/UserView/UserViewSmall';
 import { useMediaQuery } from 'react-responsive';

@@ -13,4 +13,14 @@ function Profile() {
 	)
 }
 
-export {Profile}
+function Cart({ search, setSearch, data }) { //data is user info
+	return(
+		<></>
+	)
+}
+
+function Orders() {
+	return <> </>
+}
+
+export {Profile, Cart, Orders}
