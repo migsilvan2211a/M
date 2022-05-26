@@ -11,6 +11,7 @@ import User from './pages/User';
 import Contact from './pages/Contact';
 import About from './pages/About';
 import SingleProduct from './pages/SingleProduct';
+import Page404 from './pages/Page404';
 import {UserProvider} from './UserContext'
 import './App.css'
 import Footer from './components/Footer/Footer'
@@ -36,6 +37,7 @@ function App() {
             <Route path="/contact" element={ <Contact /> } />
             <Route path="/about" element={ <About /> } />
             <Route path="/products/get/:id" element={ <SingleProduct /> } />
+            <Route path="*" element={ <Page404 /> } />
         	</Routes>
           <Footer />
       </UserProvider>
