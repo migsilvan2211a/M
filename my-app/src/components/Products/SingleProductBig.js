@@ -10,7 +10,7 @@ import invalidCredentials from '../Commons/invalidCredentials'
 export default function SingleProductBig() {
 	const navi = useNavigate();
 	const {id, product} = useContext(SingleProductContext);
-	const link = (product.img && product.img.link) ? product.img.link : "https://www.navigation.com/static/WFS/Shop-CitroenEMEA-Site/-/Shop-CitroenEMEA/en_GB/Product%20Not%20Found.png"
+	const link = (product.img && product.img.link) ? product.img.link : "https://wallpaperaccess.com/full/4966661.jpg"
 	const qUp = () => {if(quantity < product.stock) setQuantity(++quantity)}
 	const qDown = () => {if(quantity > 0) setQuantity(--quantity)}
 	const cartHandle = () => addToCart(id, quantity);

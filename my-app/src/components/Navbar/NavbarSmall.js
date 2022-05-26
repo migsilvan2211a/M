@@ -16,7 +16,7 @@ export default function NavbarSmall() {
 				<Nav.Link as={Link} className="p-1" to="/">Home</Nav.Link>
 				<Nav.Link as={Link} className="p-1" to="/products">Products</Nav.Link>
 				<Nav.Link as={Link} className="p-1" to="/about" >About Us</Nav.Link>
-				<Nav.Link as={Link} className="p-1" to="/contact" >Contact Us</Nav.Link>
+
 				{	!user.token ? 
 					<>
 						<Nav.Link as={Link} className="p-1" to="/login" >Log in</Nav.Link>

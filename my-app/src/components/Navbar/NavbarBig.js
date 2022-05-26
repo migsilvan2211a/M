@@ -13,7 +13,7 @@ export default function NavbarBig() {
 					<Link className="px-2 py-0 m-0 myLink" to="/">Home</Link>
 					<Link className="px-2 py-0 m-0 myLink" to="/products">Products</Link>
 					<Link className="px-2 py-0 m-0 myLink" to="/about" >About Us</Link>
-					<Link className="px-2 py-0 m-0 myLink" to="/contact" >Contact Us</Link>
+
 				</div>
 			</div>
 			

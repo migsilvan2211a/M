@@ -1,13 +1,15 @@
 //imports
 	import React, {useState, useEffect} from 'react';
-	import {Form, Button, Image} from 'react-bootstrap';
+	import {Form, Button, Image, Row, Col} from 'react-bootstrap';
 	import serverMessage from '../components/Commons/serverMessage'
 	import Datepicker from 'react-datepicker';
 	import phil from 'phil-reg-prov-mun-brgy';
 	import { useNavigate }  from 'react-router-dom';
 	import 'react-datepicker/dist/react-datepicker.css';
 	import 'react-datepicker/dist/react-datepicker-cssmodules.css';
-	import pic1 from '../pictures/clothes1.jpg'
+	import pic1 from '../pictures/clothes1.jpg';
+	import passwordChecker from '../components/Commons/passwordChecker';
+	import phoneChecker from '../components/Commons/phoneChecker';
 
 
 export default function Register() {
@@ -18,7 +20,7 @@ export default function Register() {
 		const [pass, setPass] = useState('');
 		const [verPass, setVerPass] = useState('');
 		const [phone, setPhone] = useState('');
-		const [bday, setBday] = useState(new Date());
+		const [bday, setBday] = useState();
 		const [region, setRegion] = useState({});
 		const [prov, setProv] = useState({});
 		const [mun, setMun] = useState([]);
@@ -31,6 +33,7 @@ export default function Register() {
 		const [isActive1, setActive1] = useState(false);
 		const [isActive2, setActive2] = useState(false);
 		const [isActive3, setActive3] = useState(false);
+		const phoneChk = phoneChecker(phone);
 	
 	const navigate = useNavigate();
 	 useEffect(() => {
@@ -80,10 +83,11 @@ export default function Register() {
 	
 	//effects for activating next buttons
 		useEffect(() => {
-			if((email !== '' && pass !== '' && verPass !== '' && phone !== '') && (pass === verPass))
+			if((email !== '' && pass !== '' && verPass !== '' && phone !=='' && bday !== '' && fName !== "" && lName !== "") && (pass === verPass) && phoneChk.bool) {
 				setActive1(true)	
+			}
 			else
-				setActive1(false)
+				setActive1(false)	
 		}, [email, pass, verPass, phone]);
 
 		useEffect(() => {
@@ -121,56 +125,121 @@ export default function Register() {
 				}
 			})
 
-		}).then(response => response.json()).then(data => serverMessage(data, "successfully saved"))
+		}).then(response => response.json()).then(data => {
+			if(serverMessage(data, "successfully saved"))
+				navigate('/login')
+
+		})
 	}
 
 	function reg1() {
+		let passChk = passwordChecker(pass, verPass, fName, lName)
+		let message = (passChk.message.length > 0) ? passChk.message : []
 		return(
 			<>
-			<Form.Group className="">
-				<Form.Label>Email Address:</Form.Label>
+			<Form.Group>
+				<Form.Label className="mb-0 mt-2 pb-0">First Name:</Form.Label>
+				<Form.Control type="text" onChange={(e) => setFName(e.target.value)} value={fName} required/>
+			</Form.Group>
+
+			<Form.Group>
+				<Form.Label className="mb-0 mt-2 pb-0">Last Name:</Form.Label>
+				<Form.Control type="text" onChange={(e) => setLName(e.target.value)} value={lName} required/>
+			</Form.Group>
+
+			<Form.Group>
+				<Form.Label className="mb-0 mt-2 pb-0">Email Address:</Form.Label>
 				<Form.Control type="email" onChange={e => setEmail(e.target.value)} value={email} required />
 				<Form.Text className="text-muted">We'll never share your email with anyone else</Form.Text>
 			</Form.Group>
 
-			<Form.Group className="">
-				<Form.Label>Password:</Form.Label>
+			<Form.Group>
+				<Form.Label className="mb-0 mt-2 pb-0">Password:</Form.Label>
 				<Form.Control type="password" onChange={e => setPass(e.target.value)} value={pass} required />
+				{
+					(message.length > 0) ?
+					<Form.Text style={{color: "red"}}>{message[0]}</Form.Text> :
+					<></>
+				}
 			</Form.Group>
 
-			<Form.Group className="">
-				<Form.Label>Verify Password:</Form.Label>
+			<Form.Group>
+				<Form.Label className="mb-0 mt-2 pb-0">Verify Password:</Form.Label>
 				<Form.Control type="password" onChange={e => setVerPass(e.target.value)} value={verPass} required />
+
 			</Form.Group>
-				
-			<Form.Group className="">
-				<Form.Label>Cellphone Number:</Form.Label>
+			<Row>	
+			<Form.Group className="col-6 me-0 pe-0">
+				<Form.Label className="mb-0 mt-2 pb-0">Phone Number:</Form.Label>
 				<Form.Control type="text" onChange={e => setPhone(e.target.value)} value={phone} required/>
 			</Form.Group>
+
 			
-			{isActive1 ? <Button className="mt-3" onClick={e => setPage(2)}>Next</Button> : <Button className="mt-3" disabled>Next</Button>}
+
+			<Form.Group className="col-6 ms-0">
+				<Form.Label className="mb-0 mt-2 pb-0">Birth Date:</Form.Label>
+				<Form.Control type="text" onChange={e => setBday(e.target.value)} value={bday} placeholder="mm/dd/yyyy" required/>
+			</Form.Group>
+			</Row>
+
+
+			{
+				<Row>
+					{
+						(phoneChk.message.length > 0) ?
+						<Form.Text style={{color: "red"}}>{phoneChk.message}</Form.Text> :
+						<></>
+					}
+				</Row>
+			}
+			{(isActive1 && passChk.bool) ? <Button className="mt-3" onClick={e => setPage(2)}>Next</Button> : <Button className="mt-3" disabled>Next</Button>}
 		</>)	
 	}
 
 	function reg2() {
 		return(
 			<>
-				<Form.Group>
-					<Form.Label>First Name:</Form.Label>
-					<Form.Control type="text" onChange={(e) => setFName(e.target.value)} value={fName} required/>
-				</Form.Group>
-
-				<Form.Group>
-					<Form.Label>Last Name:</Form.Label>
-					<Form.Control type="text" onChange={(e) => setLName(e.target.value)} value={lName} required/>
+				<Form.Group className="">
+					<Form.Label className="mb-0 mt-2 pb-0">Region:</Form.Label>
+					<Form.Select onChange={e => handleRegion(e.target.value)} >
+						<option value={region}>{region.name}</option>
+						{phil.regions.map((x) => {
+							return(<option value={JSON.stringify(x)} key={x.reg_code}>{x.name}</option>)
+						})}
+					</Form.Select>
 				</Form.Group>
 
 				<Form.Group className="">
-					<Form.Label>Birth Date:</Form.Label>
-					<Datepicker selected={bday} onChange={(date:Date) => setBday(date)} />
+					<Form.Label className="mb-0 mt-2 pb-0">Province:</Form.Label>
+					<Form.Select onChange={e => handleProv(e.target.value)}>
+						<option value={prov}>{prov.name}</option>
+						{provChoice}
+					</Form.Select>
+				</Form.Group>
+
+				<Form.Group className="">
+					<Form.Label className="mb-0 mt-2 pb-0">Municipality:</Form.Label>
+					<Form.Select onChange={e => handleMun(e.target.value)}>
+						<option value={mun}>{mun.name}</option>
+						{munChoice}
+					</Form.Select>
+				</Form.Group>
+
+				<Form.Group className="">
+					<Form.Label className="mb-0 mt-2 pb-0">Baranggay:</Form.Label>
+					<Form.Select onChange={e => handleBrgy(e.target.value)}>
+						<option value={brgy}>{brgy.name}</option>
+						{brgyChoice}
+					</Form.Select>
+				</Form.Group>
+
+				<Form.Group>
+					<Form.Label className="mb-0 mt-2 pb-0">Zip Code:</Form.Label>
+					<Form.Control type="text" onChange={e => setZip(e.target.value)} value={zip} required />
 				</Form.Group>
 				<Button className="mt-3" onClick={e => setPage(1)}>Previous</Button>
-				{isActive2 ? <Button className="mt-3" onClick={e => setPage(3)}>Next</Button> : <Button className="mt-3" disabled>Next</Button>}
+
+				{isActive3 ? <Button className="mt-3" type="submit">Submit</Button> : <Button className="mt-3" disabled>Submit</Button>}
 
 			</>
 		)
@@ -179,47 +248,6 @@ export default function Register() {
 	function reg3() {
 		return(
 			<>
-				<Form.Group className="">
-					<Form.Label>Region:</Form.Label>
-					<Form.Select onChange={e => handleRegion(e.target.value)}>
-						<option value=""></option>
-						{phil.regions.map((x) => {
-							return(<option value={JSON.stringify(x)} key={x.reg_code}>{x.name}</option>)
-						})}
-					</Form.Select>
-				</Form.Group>
-
-				<Form.Group className="">
-					<Form.Label>Province:</Form.Label>
-					<Form.Select onChange={e => handleProv(e.target.value)}>
-						<option value=""></option>
-						{provChoice}
-					</Form.Select>
-				</Form.Group>
-
-				<Form.Group className="">
-					<Form.Label>Municipality:</Form.Label>
-					<Form.Select onChange={e => handleMun(e.target.value)}>
-						<option value=""></option>
-						{munChoice}
-					</Form.Select>
-				</Form.Group>
-
-				<Form.Group className="">
-					<Form.Label>Baranggay:</Form.Label>
-					<Form.Select onChange={e => handleBrgy(e.target.value)}>
-						<option value=""></option>
-						{brgyChoice}
-					</Form.Select>
-				</Form.Group>
-
-				<Form.Group>
-					<Form.Label>Zip Code:</Form.Label>
-					<Form.Control type="text" onChange={e => setZip(e.target.value)} value={zip} required />
-				</Form.Group>
-				<Button className="mt-3" onClick={e => setPage(2)}>Previous</Button>
-
-				{isActive3 ? <Button className="mt-3" type="submit">Submit</Button> : <Button className="mt-3" disabled>Submit</Button>}
 
 			</>
 		)
@@ -230,20 +258,18 @@ export default function Register() {
 			return reg1();
 		else if (page === 2)
 			return reg2();
-		else if (page === 3)
-			return reg3();
 	}
 
 	return (
 		<div className="row m-0">
-			<div className="col-md-4 fitHeight">
-				<Form onSubmit={registerUser}className="mx-4 mx-xl-5 p-4 p-xl-0 pt-xl-5  fitHeight d-flex flex-column">
+			<div className="col-xl-4 col-md-5 fitHeight">
+				<Form onSubmit={registerUser}className=" mx-3 m-md-0 m-lg-3 p-5  p-md-4 py-lg-3 px-lg-4 fitHeight d-flex flex-column">
 					<h1 className="text-center">Sign Up</h1>
-					<br />
+					<hr />
 					{handlePage()}
 				</Form>
 			</div>
-			<Image style={{objectFit: 'cover', objectPosition: '20% 50%'}} className="d-none d-md-flex col-md-8 p-0" src={pic1} />
+			<Image style={{objectFit: 'cover', objectPosition: '20% 50%'}} className="d-none d-md-flex col-xl-8 col-md-7 p-0 fitHeight" src={pic1} />
 
 		</div>
 	)

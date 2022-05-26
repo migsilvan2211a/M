@@ -10,6 +10,7 @@ export default function Admin() {
 	const navi = useNavigate();
 	const isSmall = useMediaQuery({ maxWidth: 768});
 	let [data, setData] = useState();
+	
 	switch(localStorage.getItem("isAdmin")) {
 		case ("false") : 
 			Swal.fire("Forbidden Action", "Admin only", "error")

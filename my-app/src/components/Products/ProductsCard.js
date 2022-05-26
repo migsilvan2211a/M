@@ -5,7 +5,7 @@ export default function ProductsCard({name, description, price, stock, _id, img}
 	console.log(img)
 	const navi = useNavigate();
 	const clickHandle = () => navi(`/products/get/${_id}`)
-	let link = (img && img.link) ? img.link : "https://www.navigation.com/static/WFS/Shop-CitroenEMEA-Site/-/Shop-CitroenEMEA/en_GB/Product%20Not%20Found.png"
+	let link = (img && img.link) ? img.link : "https://wallpaperaccess.com/full/4966661.jpg"
 	return(
 		<Card onClick={clickHandle} style={{height: "310px", cursor: "pointer", objectFit: "cover"}} className="p-0 m-2 cardWidth">
 			<Card.Img src={link} style={{height: "190px"}} className=" m-0 p-0 border cardWidth "/>

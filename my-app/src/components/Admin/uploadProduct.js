@@ -26,6 +26,7 @@ export default function uploadProduct(name, setName, description, setDescription
 		serverMessage(data, "Product saved successfully"); 
 		fetchAdminData(setData, "products", "/products/getAll")
 	})
+			setName('');
 			setDescription('');
 			setPrice('');
 			setStock('');
