@@ -9,11 +9,11 @@ export default function ProductsSmall() {
 	useEffect(() => getData(setProducts), [])
 	return(
 		
-		<div className="d-flex flex-column m-0 px-2 py-3">
-			<Row className="container-fluid m-0 p-0">
+		<div className="d-flex flex-column m-0">
+			<Row className="container-fluid m-0 mt-4 p-0">
 				<Search {...{search, setSearch}} />
 			</Row>
-			<Row className="container-fluid  mt-3">
+			<Row className="container-fluid  m-0 my-3 p-0">
 				<DrawCards {...{products, setProducts, page, search}} />
 			</Row>	
 		</div>

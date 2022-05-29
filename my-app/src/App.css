@@ -1,10 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Cardo&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
-@media (min-width: 769px) {
-
-
-
+@media (max-width: 1920px) {
 	.myLink{
 		color: black;
 		font-size: 18px;
@@ -14,8 +11,23 @@
 	}
 
 	.cardWidth {
-		width: 270px;
+		width: 240px;
+	}	
+
+}
+
+@media (max-width: 1024px) {
+	.myLink{
+		color: black;
+		font-size: 18px;
+		text-decoration: none;
+		text-decoration-line: none;
+		font-family: 'Montserrat', sans-serif;
 	}
+
+	.cardWidth {
+		width: 240px;
+	}	
 
 }
 
@@ -38,16 +50,66 @@
 	}
 
 	.cardWidth {
-		width: 35vw;
+		min-width: 200px;
+		width: 210px;
+		max-width: 260px;
 	}
 }
 
+@media (max-width: 426px){
+
+	.fullWindowWidth {
+		width: calc(100vw - var(--scrollbar-width))
+	}
+
+	.homeBorder{
+		border-style: solid;
+		border-color: black;
+		border-width: 15px;
+	}
+	.myLink{
+		color: black;
+		font-size: 20px;
+		text-decoration: none;
+		text-decoration-line: none;
+		font-family: 'Montserrat', sans-serif;
+	}
+
+	.cardProduct {
+		min-width: 43vw;
+		max-width: 43vw;
+		width: 43vw;
+		min-height: 300px;
+		max-height: 300px;
+		height: 300px;
+		cursor: pointer;
+		margin-left: 10px;
+	}
+
+	.cardImage {
+		min-width: 43vw;
+		max-width: 43vw;
+		width: 43vw;
+		min-height: 200px;
+		height: 200px;
+		max-height: 200px;
+		object-fit: cover;
+	}
+
+	.cardTitle {
+		font-size: 16px;
+		min-width: 43vw;
+		max-width: 43vw;
+		width: 43vw;
+	}
+}
 
 * {
   padding: 0px;
   margin: 0px;
   box-sizing: border-box;
 }
+
 
 body {
   height:  100%;
@@ -91,7 +153,8 @@ body {
 
 
 .myLink:hover {
-	color: gold;
+	color: papayawhip;
+	background-color: gray;
 }
 
 .white-bg {
@@ -122,4 +185,45 @@ body {
 
 .cardHighlight:hover {
 	background-color: papayawhip;
+}
+
+
+.papaya-txt-1 {
+	color: #ffdca2;
+}
+
+.papaya-txt-2 {
+	color: #ffc86f;
+}
+
+.papaya-txt-3 {
+	color: #ffc86f;
+}
+
+.papaya-txt-4 {
+	color: #ffb53c;
+}
+
+.papaya-txt-5 {
+	color: #ffa109;
+}
+
+.papaya-bg-1 {
+	color: #ffdca2;
+}
+
+.papaya-bg-2 {
+	color: #ffc86f;
+}
+
+.papaya-bg-3 {
+	color: #ffc86f;
+}
+
+.papaya-bg-4 {
+	color: #ffb53c;
+}
+
+.papaya-bg-5 {
+	color: #ffa109;
 }

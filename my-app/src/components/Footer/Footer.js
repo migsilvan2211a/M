@@ -4,7 +4,6 @@ import { useMediaQuery } from 'react-responsive';
 export default function Footer() {
 	let isSmall = useMediaQuery({maxWidth: 768})
 	
-	if (!isSmall){
 		return(
 			<footer style={{backgroundColor: "papayawhip"}} className="py-5">
 				<div className="d-flex p-0 m-0 justify-content-center align-items-center flex-column">
@@ -40,10 +39,3 @@ export default function Footer() {
 			</footer>
 		)
 	}
-
-	else {
-		return(
-			<footer></footer>
-		)
-	}
-}
