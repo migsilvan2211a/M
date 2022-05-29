@@ -14,12 +14,16 @@
 	}
 
 	.cardWidth {
-		width: 220px;
+		width: 270px;
 	}
 
 }
 
 @media (max-width: 768px) {
+	.fullWindowWidth {
+		width: calc(100vw - var(--scrollbar-width))
+	}
+
 	.homeBorder{
 		border-style: solid;
 		border-color: black;
@@ -59,7 +63,7 @@ body {
 	background-size: cover;
 	background-position: 75% -50%;
 	height: 100vh;
-	width: 100vw;
+	
 }
 
 #homeBar {

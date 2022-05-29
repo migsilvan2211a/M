@@ -11,8 +11,8 @@ export default function NavbarBig() {
 				<Navbar.Brand className="m-0 px-2 py-0" id='MNavbar'>M</Navbar.Brand>
 				<div className="d-flex justify-self-start pt-3 pb-0 m-0">
 					<Link className="px-2 py-0 m-0 myLink" to="/">Home</Link>
-					<Link className="px-2 py-0 m-0 myLink" to="/products">Products</Link>
-					<Link className="px-2 py-0 m-0 myLink" to="/about" >About Us</Link>
+					<Link className="px-2 py-0 m-0 myLink" to="/products">Shop</Link>
+					<Link className="px-2 py-0 m-0 myLink" to="/contact" >Contact Us</Link>
 
 				</div>
 			</div>

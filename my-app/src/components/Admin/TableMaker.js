@@ -80,6 +80,8 @@ function TableSearch({header, data, search, category}) {
 		const [show, setShow] = useState(false);
 		const handleShow = () => setShow(true);
 		const handleClose = () => setShow(false);
+		console.log(category)
+		console.log(x._id)
 		function deleteFinal() {
 			fetch(`https://infinite-sea-39312.herokuapp.com/${category}/delete/${x._id}`, 
 			{
@@ -94,7 +96,8 @@ function TableSearch({header, data, search, category}) {
 				if (data.error == "Invalid Credentials")
 					return invalidCredentials();
 				serverMessage(data, "Successfully deleted" );
-				fetchAdminData(setData, category, `/${category}/findAll`)})
+				fetchAdminData(setData, category, `/${category}/getAll`)})
+				handleClose();
 		}
 
 		return(

@@ -23,7 +23,7 @@ function App() {
 
   
   return (
-    <>
+    <div className="fullWindowWidth">
       <UserProvider value={{user, setUser}}>
         {(location.pathname === '/') ? <></> : <AppNavbar />}
         	<Routes>
@@ -41,7 +41,7 @@ function App() {
         	</Routes>
           <Footer />
       </UserProvider>
-    </>
+    </div>
   );
 } 
 
