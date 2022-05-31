@@ -1,10 +1,9 @@
 import React, {useState, useContext, useEffect} from 'react';
 import {useMediaQuery} from 'react-responsive'
-import LoginBig from '../components/Login/LoginBig';
-import LoginSmall from '../components/Login/LoginSmall';
 import Swal from 'sweetalert2';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, Link} from 'react-router-dom';
 import UserContext from '../UserContext';
+import { Form, Button } from 'react-bootstrap'
 
 
 
@@ -59,9 +58,25 @@ export default function Login() {
     setPass: setPass
   }
   return (
-    <>
-     {isSmall ? <LoginSmall {...props} /> : <LoginBig {...props} />} 
-    </>
+    <div className="p-lg-5 p-0 fitHeight d-flex border border-black justify-content-center loginContent loginPic">
+      <Form onSubmit={e => login(e)} className="d-flex flex-column p-lg-5 p-4 m-0 my-3 loginCard">
+        <h1 className="text-center mb-2">Login</h1>
+        <hr className="p-0  m-2" style={{color: "grey"}}/> 
+        <Form.Group className="m-2">
+          <Form.Label>Email:</Form.Label>
+          <Form.Control type="text" onChange={e => setEmail(e.target.value)} value={email} required />
+        </Form.Group>
+
+          <Form.Group className="m-2">
+          <Form.Label>Password:</Form.Label>
+          <Form.Control type="password" onChange={e => setPass(e.target.value)} value={pass} required />
+        </Form.Group>
+
+
+        <Link to="/register" className="m-2 text-black">Click here to create account</Link>
+        <Button type="submit" className="m-2">Submit</Button>
+      </Form>
+    </div>
   );
 }
 

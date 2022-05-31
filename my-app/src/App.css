@@ -79,9 +79,9 @@
 		min-width: 43vw;
 		max-width: 43vw;
 		width: 43vw;
-		min-height: 300px;
-		max-height: 300px;
-		height: 300px;
+		min-height: 330px;
+		max-height: 330px;
+		height: 330px;
 		cursor: pointer;
 		margin-left: 10px;
 	}
@@ -90,9 +90,9 @@
 		min-width: 43vw;
 		max-width: 43vw;
 		width: 43vw;
-		min-height: 200px;
-		height: 200px;
-		max-height: 200px;
+		min-height: 230px;
+		height: 230px;
+		max-height: 230px;
 		object-fit: cover;
 	}
 
@@ -181,7 +181,10 @@ body {
 .loginCard {
 	width : 400px;
 	max-width: 400px;
+	background-color:  rgba(255,255,255,0.8);
 }
+
+
 
 .cardHighlight:hover {
 	background-color: papayawhip;
