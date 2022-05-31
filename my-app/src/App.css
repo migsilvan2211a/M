@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Cardo&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
-@media (max-width: 1920px) {
+@media (max-width: 1921px) {
 	.myLink{
 		color: black;
 		font-size: 18px;
@@ -16,7 +16,7 @@
 
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1025px) {
 	.myLink{
 		color: black;
 		font-size: 18px;
@@ -31,7 +31,7 @@
 
 }
 
-@media (max-width: 768px) {
+@media (max-width: 769px) {
 	.fullWindowWidth {
 		width: calc(100vw - var(--scrollbar-width))
 	}

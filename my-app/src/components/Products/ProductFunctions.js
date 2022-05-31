@@ -33,7 +33,6 @@ function DrawCards({products, setProducts, page, search}) { //products is an arr
 		let drawButton1 = (page * 24 < products.length && page > 0) //Load More button 
 		page++
 		let handleLoad = () => {setLoadMore(true); drawButton1 = false;}
-
 	//Rendering Methods
 		let forFinalRender = [];
 		forFinalRender.push(<div className="d-flex flex-wrap justify-content-center p-0 m-0">{cards}</div>)

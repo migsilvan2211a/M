@@ -15,6 +15,7 @@ import Page404 from './pages/Page404';
 import {UserProvider} from './UserContext'
 import './App.css'
 import Footer from './components/Footer/Footer'
+import ScreenSize from './components/Commons/ScreenSize';
 
 function App() {
   
