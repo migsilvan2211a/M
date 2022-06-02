@@ -21,7 +21,7 @@ function App() {
   
   const [user, setUser] = useState({ token: localStorage.getItem("token"), email: localStorage.getItem("email"), isAdmin : localStorage.getItem("isAdmin"), fullName: localStorage.getItem("fullName")});
   const location = useLocation();
-
+  let screenSize = ScreenSize;
   
   return (
     <div className="fullWindowWidth">

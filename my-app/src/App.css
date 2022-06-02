@@ -1,6 +1,32 @@
 @import url('https://fonts.googleapis.com/css2?family=Cardo&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
+
+
+:root{
+--papaya-txt-1: #ffdca2;
+
+--papaya-txt-2: #ffc86f;
+
+--papaya-txt-3: #ffc86f;
+
+--papaya-txt-4: #ffb53c;
+
+--papaya-txt-5: #ffa109;
+
+--papaya-bg-1: #ffdca2;
+
+--papaya-bg-2: #ffc86f;
+
+--papaya-bg-3: #ffc86f;
+
+--papaya-bg-4: #ffb53c;
+
+--papaya-bg-5: #ffa109;
+}
+
+
+
 @media (max-width: 1921px) {
 	.myLink{
 		color: black;
@@ -76,32 +102,62 @@
 	}
 
 	.cardProduct {
-		min-width: 43vw;
-		max-width: 43vw;
-		width: 43vw;
-		min-height: 330px;
-		max-height: 330px;
-		height: 330px;
+		min-width: calc(42vw + 4px);
+		max-width: calc(42vw + 4px);
+		width: calc(42vw + 2px);
+		min-height: 302px;
+		max-height: 302px;
+		height: 302px;
 		cursor: pointer;
-		margin-left: 10px;
+		margin: 4px;
+		border: 2px solid black;
+		padding: 0px;
+		display: flex;
+		justify-content: center;
+		align-items: center
 	}
 
 	.cardImage {
-		min-width: 43vw;
-		max-width: 43vw;
-		width: 43vw;
+		min-width: 42vw;
+		max-width: 42vw;
+		width: 42vw;
 		min-height: 230px;
 		height: 230px;
 		max-height: 230px;
 		object-fit: cover;
+		border-radius: 3px 3px 0px 0px;
+		margin: 0px;
+		padding: 0px;
+
 	}
 
 	.cardTitle {
+
 		font-size: 12px;
-		min-width: 43vw;
-		max-width: 43vw;
-		width: 43vw;
+		min-width: 40vw;
+		max-width: 01vw;
+		width: 40vw;
+		height: 2.5em;
+		padding-right: 2px;
+		margin: 0px;
+		overflow: hidden;
+
+
+
 	}
+
+	.cardBody {
+			border-top: 1px solid black;
+		min-width: 42vw;
+		max-width: 42vw;
+		width: 42vw;
+		background-color: papayawhip;
+		padding: 8px;
+		margin: 0px;
+		border-radius: 0px 0px 3px 3px;
+	}
+
+
 }
 
 * {
@@ -109,7 +165,6 @@
   margin: 0px;
   box-sizing: border-box;
 }
-
 
 body {
   height:  100%;
@@ -190,43 +245,3 @@ body {
 	background-color: papayawhip;
 }
 
-
-.papaya-txt-1 {
-	color: #ffdca2;
-}
-
-.papaya-txt-2 {
-	color: #ffc86f;
-}
-
-.papaya-txt-3 {
-	color: #ffc86f;
-}
-
-.papaya-txt-4 {
-	color: #ffb53c;
-}
-
-.papaya-txt-5 {
-	color: #ffa109;
-}
-
-.papaya-bg-1 {
-	color: #ffdca2;
-}
-
-.papaya-bg-2 {
-	color: #ffc86f;
-}
-
-.papaya-bg-3 {
-	color: #ffc86f;
-}
-
-.papaya-bg-4 {
-	color: #ffb53c;
-}
-
-.papaya-bg-5 {
-	color: #ffa109;
-}

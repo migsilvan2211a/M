@@ -1,5 +1,5 @@
 import ProductsCard from './ProductsCard'
-import { Row, Button } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import React, { useState } from 'react';
 
 
@@ -7,6 +7,14 @@ import React, { useState } from 'react';
 function getData(setProducts) {
 	fetch(`https://infinite-sea-39312.herokuapp.com/products/getAllActive`).then(res => res.json()).then(data => setProducts(data))
 }
+
+
+
+/*
+Draw Cards first checks for search bar matches.
+We show 2 products per loading. An array is used to make the return cleaner;
+This function creates a new div of cards
+*/
 
 function DrawCards({products, setProducts, page, search}) { //products is an array
 	console.log(`page is ${page}`)
@@ -23,19 +31,21 @@ function DrawCards({products, setProducts, page, search}) { //products is an arr
 			toRender = searched;
 		else
 			toRender = products;
+		console.log(`toRender length is ${toRender.length}`)
 	//create cards to display
 		let cards = [];
 		const limit = (toRender.length >= 24) ? 24 : toRender.length;
-		for (let i = (page - 1) * limit ; i < page * limit ; i++ ) {
+		for (let i = (page - 1) * limit ; i < page * limit && i < toRender.length  ; i++ ) { //condition checks under multiple of limit (blank cards may be produced) and won't exceed renderable
 			cards.push(<ProductsCard {...toRender[i]} />);
 		}
     //Load More Button functions
-		let drawButton1 = (page * 24 < products.length && page > 0) //Load More button 
+		let drawButton1 = (page * 24 < toRender.length && page > 0) //Load More button 
 		page++
 		let handleLoad = () => {setLoadMore(true); drawButton1 = false;}
+
 	//Rendering Methods
 		let forFinalRender = [];
-		forFinalRender.push(<div className="d-flex flex-wrap justify-content-center p-0 m-0">{cards}</div>)
+		forFinalRender.push(<>{cards}</>)
 		
 		if (drawButton1 && !loadMore)
 			forFinalRender.push(<Button onClick={handleLoad}>Load More</Button>)
@@ -44,7 +54,7 @@ function DrawCards({products, setProducts, page, search}) { //products is an arr
 		if (finalRender.length == 0)
 			setFinalRender(forFinalRender);
 	return  (
-		<div>
+		<div className="d-inline-flex flex-wrap p-0 m-0 g-0 justify-content-center">
 			{forFinalRender}
 		</div>
 	);
