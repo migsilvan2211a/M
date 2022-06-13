@@ -40,8 +40,65 @@
 		width: 240px;
 	}	
 
+	.cardProduct {
+		min-width: calc( 15vw + 4px);
+		max-width: calc( 15vw + 4px);
+		width: calc( 15vw + 2px);
+		min-height: 302px;
+		max-height: 302px;
+		height: 302px;
+		cursor: pointer;
+		margin: 4px;
+		border: 2px solid black;
+		padding: 0px;
+		display: flex;
+		justify-content: center;
+		align-items: center
+	}
+
+	.cardImage {
+		min-width:  15vw;
+		max-width:  15vw;
+		width:  15vw;
+		min-height: 230px;
+		height: 230px;
+		max-height: 230px;
+		object-fit: cover;
+		border-radius: 3px 3px 0px 0px;
+		margin: 0px;
+		padding: 0px;
+
+	}
+
+	.cardTitle {
+
+		font-size: 12px;
+		min-width: 13vw;
+		max-width: 13vw;
+		width: 13vw;
+		height: 2.5em;
+		padding-right: 2px;
+		margin: 0px;
+		overflow: hidden;
+
+
+
+	}
+
+	.cardBody {
+			border-top: 1px solid black;
+		min-width: 15vw;
+		max-width:  15vw;
+		width: 42vw;
+		background-color: papayawhip;
+		padding: 8px;
+		margin: 0px;
+		border-radius: 0px 0px 3px 3px;
+	}
+
 }
 
+/*
 @media (max-width: 1025px) {
 	.myLink{
 		color: black;
@@ -81,8 +138,8 @@
 		max-width: 260px;
 	}
 }
-
-@media (max-width: 426px){
+*/
+@media (max-width: 769px){
 
 	.fullWindowWidth {
 		width: calc(100vw - var(--scrollbar-width))
@@ -207,10 +264,7 @@ body {
 
 
 
-.myLink:hover {
-	color: papayawhip;
-	background-color: gray;
-}
+
 
 .white-bg {
 	background-color: rgb(255,255,255);

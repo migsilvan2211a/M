@@ -262,8 +262,8 @@ export default function Register() {
 
 	return (
 		<div className="row m-0">
-			<div className="col-xl-4 col-md-5 fitHeight">
-				<Form onSubmit={registerUser}className=" mx-3 m-md-0 m-lg-3 p-5  p-md-4 py-lg-3 px-lg-4 fitHeight d-flex flex-column">
+			<div className="col-xl-4 col-md-5 col-12 fitHeight">
+				<Form onSubmit={registerUser}className=" mx-3 m-md-0 m-lg-3 py-4 px-1  p-md-4 py-lg-3 px-lg-4 fitHeight d-flex flex-column">
 					<h1 className="text-center">Sign Up</h1>
 					<hr />
 					{handlePage()}
